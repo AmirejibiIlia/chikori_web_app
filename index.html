@@ -16,46 +16,86 @@
     <div class="product-grid">
 
       <div class="product-card" onclick="toggleDropdown('table')">
-        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="მაგიდა" />
-        <h2>მაგიდა</h2>
+        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp" alt="მაგიდა" />
+        <h2>კარადა</h2>
         <p class="price">₾250</p>
         <div class="dropdown" id="table">
-          <h3>განვადება</h3>
-          <button class="pay-button tbc" onclick="redirectTo('https://tbc.ge/payment')">TBC</button>
-          <button class="pay-button bog" onclick="redirectTo('https://bog.ge/payment')">BoG</button>
+          <h3>💳 გადახდის მეთოდები</h3>
+          <div class="main-options">
+            <button class="main-option-btn" onclick="showSubOptions('table', 'later')">გადახდა მოგვიანებით</button>
+            <button class="main-option-btn" onclick="showSubOptions('table', 'installment')">განვადება</button>
+          </div>
+          <div class="sub-options" id="table-later" style="display: none;">
+            <div class="sub-option" onclick="selectOption('table', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠 </div>
+            <div class="sub-option" onclick="selectOption('table', 'განაწილება')">განაწილება 🔵</div>
+          </div>
+          <div class="sub-options" id="table-installment" style="display: none;">
+            <div class="sub-option" onclick="selectOption('table', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
+            <div class="sub-option" onclick="selectOption('table', 'თიბისი')">თიბისი 🔵</div>
+          </div>
         </div>
       </div>
 
       <div class="product-card" onclick="toggleDropdown('bed')">
-        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="საწოლი" />
+        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp" alt="საწოლი" />
         <h2>საწოლი</h2>
         <p class="price">₾650</p>
         <div class="dropdown" id="bed">
-          <h3>განვადება</h3>
-          <button class="pay-button tbc" onclick="redirectTo('https://tbc.ge/payment')">TBC</button>
-          <button class="pay-button bog" onclick="redirectTo('https://bog.ge/payment')">BoG</button>
+          <h3>💳 გადახდის მეთოდები</h3>
+          <div class="main-options">
+            <button class="main-option-btn" onclick="showSubOptions('bed', 'later')">გადახდა მოგვიანებით</button>
+            <button class="main-option-btn" onclick="showSubOptions('bed', 'installment')">განვადება</button>
+          </div>
+          <div class="sub-options" id="bed-later" style="display: none;">
+            <div class="sub-option" onclick="selectOption('bed', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
+            <div class="sub-option" onclick="selectOption('bed', 'განაწილება')">განაწილება 🔵</div>
+          </div>
+          <div class="sub-options" id="bed-installment" style="display: none;">
+            <div class="sub-option" onclick="selectOption('bed', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
+            <div class="sub-option" onclick="selectOption('bed', 'თიბისი')">თიბისი 🔵</div>
+          </div>
         </div>
       </div>
 
       <div class="product-card" onclick="toggleDropdown('sofa')">
         <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="კუთხის დივანი" />
-        <h2>კუთხის დივანი</h2>
+        <h2>სამზარეულოს კუთხე</h2>
         <p class="price">₾650</p>
         <div class="dropdown" id="sofa">
-          <h3>განვადება</h3>
-          <button class="pay-button tbc" onclick="redirectTo('https://tbc.ge/payment')">TBC</button>
-          <button class="pay-button bog" onclick="redirectTo('https://bog.ge/payment')">BoG</button>
+          <h3>💳 გადახდის მეთოდები</h3>
+          <div class="main-options">
+            <button class="main-option-btn" onclick="showSubOptions('sofa', 'later')">გადახდა მოგვიანებით</button>
+            <button class="main-option-btn" onclick="showSubOptions('sofa', 'installment')">განვადება</button>
+          </div>
+          <div class="sub-options" id="sofa-later" style="display: none;">
+            <div class="sub-option" onclick="selectOption('sofa', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
+            <div class="sub-option" onclick="selectOption('sofa', 'განაწილება')">განაწილება 🔵</div>
+          </div>
+          <div class="sub-options" id="sofa-installment" style="display: none;">
+            <div class="sub-option" onclick="selectOption('sofa', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
+            <div class="sub-option" onclick="selectOption('sofa', 'თიბისი')">თიბისი 🔵</div>
+          </div>
         </div>
       </div>
 
       <div class="product-card" onclick="toggleDropdown('desk')">
-        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="სამუშაო მაგიდა" />
+        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp" alt="სამუშაო მაგიდა" />
         <h2>სამუშაო მაგიდა</h2>
         <p class="price">₾400</p>
         <div class="dropdown" id="desk">
-          <h3>განვადება</h3>
-          <button class="pay-button tbc" onclick="redirectTo('https://tbc.ge/payment')">TBC</button>
-          <button class="pay-button bog" onclick="redirectTo('https://bog.ge/payment')">BoG</button>
+          <h3>💳 გადახდის მეთოდები</h3>
+          <div class="main-options">
+            <button class="main-option-btn" onclick="showSubOptions('desk', 'later')">გადახდა მოგვიანებით</button>
+            <button class="main-option-btn" onclick="showSubOptions('desk', 'installment')">განვადება</button>
+          </div>
+          <div class="sub-options" id="desk-later" style="display: none;">
+            <div class="sub-option" onclick="selectOption('desk', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠 </div>
+            <div class="sub-option" onclick="selectOption('desk', 'განაწილება')">განაწილება  🔵</div>
+          </div>
+          <div class="sub-options" id="desk-installment" style="display: none;">
+            <div class="sub-option" onclick="selectOption('desk', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠 </div>
+            <div class="sub-option" onclick="selectOption('desk', 'თიბისი')">თიბისი 🔵</div>
+          </div>
         </div>
       </div>
 
@@ -69,14 +109,43 @@
   <script>
     function toggleDropdown(id) {
       const dropdown = document.getElementById(id);
-      dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
+      const isVisible = dropdown.style.display === "block";
+      
+      // Close all dropdowns first
+      const allDropdowns = document.querySelectorAll('.dropdown');
+      allDropdowns.forEach(dd => {
+        dd.style.display = "none";
+        // Also hide all sub-options
+        dd.querySelectorAll('.sub-options').forEach(sub => sub.style.display = "none");
+      });
+      
+      // Toggle current dropdown
+      dropdown.style.display = isVisible ? "none" : "block";
     }
 
-    function redirectTo(url) {
-      window.location.href = url;
+    function showSubOptions(productId, optionType) {
+      // Hide all sub-options for this product
+      const allSubOptions = document.querySelectorAll(`#${productId}-later, #${productId}-installment`);
+      allSubOptions.forEach(sub => sub.style.display = "none");
+      
+      // Show the selected sub-option
+      const targetSubOption = document.getElementById(`${productId}-${optionType}`);
+      targetSubOption.style.display = "block";
+      
+      // Prevent event bubbling to avoid closing the dropdown
+      event.stopPropagation();
+    }
+
+    function selectOption(productId, option) {
+      console.log(`Selected ${option} for ${productId}`);
+      // Here you can add logic to process the selection
+      // For example, redirect to payment or store the selection
+      alert(`თქვენ აირჩიეთ: ${option}`);
+      
+      // Prevent event bubbling
+      event.stopPropagation();
     }
   </script>
 
 </body>
 </html>
- 
