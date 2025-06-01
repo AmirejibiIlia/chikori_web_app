@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ჩიკორი - პროდუქცია</title>
+  <link rel="stylesheet" href="style.css" />
+</head> 
+<body>
+
+  <header>
+    <h1>აირჩიეთ სასურველი პროდუქტი</h1>
+  </header>
+
+  <main>
+    <div class="product-grid">
+
+      <div class="product-card" onclick="toggleDropdown('table')">
+        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="მაგიდა" />
+        <h2>მაგიდა</h2>
+        <p class="price">₾250</p>
+        <div class="dropdown" id="table">
+          <h3>განვადება</h3>
+          <button class="pay-button tbc" onclick="redirectTo('https://tbc.ge/payment')">TBC</button>
+          <button class="pay-button bog" onclick="redirectTo('https://bog.ge/payment')">BoG</button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="toggleDropdown('bed')">
+        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="საწოლი" />
+        <h2>საწოლი</h2>
+        <p class="price">₾650</p>
+        <div class="dropdown" id="bed">
+          <h3>განვადება</h3>
+          <button class="pay-button tbc" onclick="redirectTo('https://tbc.ge/payment')">TBC</button>
+          <button class="pay-button bog" onclick="redirectTo('https://bog.ge/payment')">BoG</button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="toggleDropdown('sofa')">
+        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="კუთხის დივანი" />
+        <h2>კუთხის დივანი</h2>
+        <p class="price">₾650</p>
+        <div class="dropdown" id="sofa">
+          <h3>განვადება</h3>
+          <button class="pay-button tbc" onclick="redirectTo('https://tbc.ge/payment')">TBC</button>
+          <button class="pay-button bog" onclick="redirectTo('https://bog.ge/payment')">BoG</button>
+        </div>
+      </div>
+
+      <div class="product-card" onclick="toggleDropdown('desk')">
+        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="სამუშაო მაგიდა" />
+        <h2>სამუშაო მაგიდა</h2>
+        <p class="price">₾400</p>
+        <div class="dropdown" id="desk">
+          <h3>განვადება</h3>
+          <button class="pay-button tbc" onclick="redirectTo('https://tbc.ge/payment')">TBC</button>
+          <button class="pay-button bog" onclick="redirectTo('https://bog.ge/payment')">BoG</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>შპს ჩიკორი. კონტაქტი: 555139900, 2025 წელი</p>
+  </footer>
+
+  <script>
+    function toggleDropdown(id) {
+      const dropdown = document.getElementById(id);
+      dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
+    }
+
+    function redirectTo(url) {
+      window.location.href = url;
+    }
+  </script>
+
+</body>
+</html>
+ 
