@@ -35,19 +35,22 @@ app.secret_key = os.getenv('FLASK_SECRET_KEY', secrets.token_hex(16))
 
 # TBC API Configuration
 TBC_API_KEY = os.getenv('TBC_API_KEY', 'YOUR_API_KEY_HERE')
+TBC_SECRET = os.getenv('TBC_SECRET', 'YOUR_SECRET_HERE')
 TBC_MERCHANT_ID = os.getenv('TBC_MERCHANT_ID', 'YOUR_MERCHANT_ID_HERE')
+TBC_CAMPAIGN_ID = os.getenv('TBC_CAMPAIGN_ID', '204')  # Default to test campaign ID
 TBC_API_BASE_URL = 'https://api.tbcbank.ge/v1/online-installments'
 
 class TBCInstallmentAPI:
     def __init__(self, api_key, merchant_id, base_url):
         self.api_key = api_key
+        self.secret = os.getenv('TBC_SECRET')
         self.merchant_id = merchant_id
         self.base_url = base_url
 
     def _generate_signature(self, payload):
         return hmac.new(
-            self.api_key.encode('utf-8'),
-            json.dumps(payload).encode('utf-8'),
+            self.secret.encode('utf-8'),
+            json.dumps(payload, sort_keys=True).encode('utf-8'),
             hashlib.sha256
         ).hexdigest()
 
@@ -58,7 +61,7 @@ class TBCInstallmentAPI:
             "priceTotal": product_data['price'],
             "productId": product_data['id'],
             "quantity": 1,
-            "campaignId": product_data.get('campaignId', 'default'),
+            "campaignId": os.getenv('TBC_CAMPAIGN_ID', '204'),  # Use campaign ID from env
             "pricePerMonth": product_data.get('pricePerMonth'),
             "invoiceId": f"INV-{datetime.now().strftime('%Y%m%d%H%M%S')}",
             "installmentType": product_data.get('installmentType', 'standard'),
@@ -170,12 +173,12 @@ def payment_failure():
 @app.route('/tbc-callback', methods=['POST'])
 def tbc_callback():
     try:
-        # Verify callback signature
+        # Verify callback signature using secret
         signature = request.headers.get('signature')
         payload = request.get_data()
         
         expected_signature = hmac.new(
-            TBC_API_KEY.encode('utf-8'),
+            TBC_SECRET.encode('utf-8'),
             payload,
             hashlib.sha256
         ).hexdigest()
