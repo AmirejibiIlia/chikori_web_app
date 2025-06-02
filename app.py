@@ -46,7 +46,8 @@ TBC_API_KEY = os.getenv('TBC_API_KEY')
 TBC_SECRET = os.getenv('TBC_SECRET')
 TBC_MERCHANT_ID = os.getenv('TBC_MERCHANT_ID')
 TBC_CAMPAIGN_ID = os.getenv('TBC_CAMPAIGN_ID', '204')
-TBC_API_BASE_URL = 'https://api.tbcbank.ge/v1/online-installments/sandbox'
+TBC_API_BASE_URL = 'https://test-api.tbcbank.ge'  # Use 'https://api.tbcbank.ge' for production
+TBC_TOKEN_CACHE = {}
 
 if not TBC_API_KEY or not TBC_MERCHANT_ID or not TBC_SECRET:
     print("WARNING: Missing TBC credentials!")
@@ -58,6 +59,42 @@ class TBCInstallmentAPI:
         self.secret = os.getenv('TBC_SECRET')
         self.merchant_id = merchant_id
         self.base_url = base_url
+        self.access_token = None
+
+    def _get_access_token(self):
+        """Get OAuth access token from TBC Bank"""
+        try:
+            # Check if we have a cached token that's still valid
+            if self.access_token and TBC_TOKEN_CACHE.get('expires_at', 0) > datetime.now().timestamp():
+                return self.access_token
+
+            # Prepare the token request
+            token_url = f"{self.base_url}/oauth/token"
+            auth = (self.api_key, self.secret)
+            data = {
+                'grant_type': 'client_credentials',
+                'scope': 'online_installments'
+            }
+            headers = {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+
+            response = requests.post(token_url, auth=auth, data=data, headers=headers)
+            
+            if response.ok:
+                token_data = response.json()
+                self.access_token = token_data['access_token']
+                # Cache the token with expiration
+                TBC_TOKEN_CACHE['token'] = self.access_token
+                TBC_TOKEN_CACHE['expires_at'] = datetime.now().timestamp() + (token_data['expires_in'] / 1000)
+                return self.access_token
+            else:
+                print(f"Failed to get access token: {response.text}")
+                return None
+
+        except Exception as e:
+            print(f"Error getting access token: {str(e)}")
+            return None
 
     def _generate_signature(self, payload):
         # Use the secret key for HMAC signature generation
@@ -69,35 +106,38 @@ class TBCInstallmentAPI:
 
     def initiate_installment(self, product_data):
         try:
-            endpoint = f"{self.base_url}/initiate"
-            
-            payload = {
-                "priceTotal": str(product_data['price']),
-                "productId": product_data['id'],
-                "quantity": "1",
-                "campaignId": TBC_CAMPAIGN_ID,
-                "merchantId": self.merchant_id,
-                "invoiceId": f"INV-{datetime.now().strftime('%Y%m%d%H%M%S')}",
-                "installmentType": product_data.get('installmentType', 'standard'),
-                "preAuth": True,
-                "successRedirectUrl": f"{request.host_url}payment-success",
-                "failureRedirectUrl": f"{request.host_url}payment-failure",
-                "callbackUrl": f"{request.host_url}tbc-callback"
-            }
+            # Get access token first
+            access_token = self._get_access_token()
+            if not access_token:
+                return {
+                    'status': 'error',
+                    'message': 'Failed to get access token'
+                }
 
-            # Generate signature
-            signature = self._generate_signature(payload)
+            endpoint = f"{self.base_url}/v1/online-installments/applications"
+            
+            # Format the payload according to TBC documentation
+            payload = {
+                "merchantKey": self.merchant_id,  # Using merchant_id as merchantKey
+                "priceTotal": float(product_data['price']),  # Convert to float for decimal
+                "campaignId": TBC_CAMPAIGN_ID,
+                "invoiceId": f"INV-{datetime.now().strftime('%Y%m%d%H%M%S')}",
+                "products": [
+                    {
+                        "name": product_data.get('name', 'Product'),
+                        "price": float(product_data['price']),
+                        "quantity": 1
+                    }
+                ]
+            }
 
             headers = {
                 'Content-Type': 'application/json',
-                'apikey': self.api_key,
-                'merchant-id': self.merchant_id,
-                'signature': signature
+                'Accept': 'application/json',
+                'Authorization': f'Bearer {access_token}'
             }
 
             print("=== TBC API Request ===")
-            print(f"Using API Key: {self.api_key}")
-            print(f"Using Merchant ID: {self.merchant_id}")
             print(f"Endpoint: {endpoint}")
             print(f"Headers: {headers}")
             print(f"Payload: {payload}")
@@ -107,11 +147,31 @@ class TBCInstallmentAPI:
             
             print("=== TBC API Response ===")
             print(f"Status Code: {response.status_code}")
+            print(f"Response Headers: {dict(response.headers)}")
             print(f"Response Body: {response.text}")
             print("=====================")
 
             if response.ok:
-                return response.json()
+                try:
+                    response_data = response.json()
+                    if 'sessionId' in response_data:
+                        # Get the redirect URL from Location header or construct it
+                        redirect_url = response.headers.get('Location')
+                        if not redirect_url:
+                            # If no Location header, construct the URL (you may need to adjust this URL)
+                            redirect_url = f"https://tbcinstallment.ge/checkout/{response_data['sessionId']}"
+                        
+                        return {
+                            'status': 'success',
+                            'sessionId': response_data['sessionId'],
+                            'redirectUrl': redirect_url
+                        }
+                    return response_data
+                except ValueError:
+                    return {
+                        'status': 'error',
+                        'message': f"Invalid JSON response with status code {response.status_code}"
+                    }
             else:
                 error_msg = response.text
                 try:
@@ -130,10 +190,14 @@ class TBCInstallmentAPI:
             return {'status': 'error', 'message': str(e)}
 
     def confirm_installment(self, session_id):
-        endpoint = f"{self.base_url}/confirm/{session_id}"
+        access_token = self._get_access_token()
+        if not access_token:
+            return {'status': 'error', 'message': 'Failed to get access token'}
+
+        endpoint = f"{self.base_url}/v1/online-installments/applications/{session_id}/confirm"
         
         headers = {
-            'apikey': self.api_key,
+            'Authorization': f'Bearer {access_token}',
             'merchant-id': self.merchant_id
         }
 
@@ -144,10 +208,14 @@ class TBCInstallmentAPI:
             return {'status': 'error', 'message': str(e)}
 
     def check_status(self, session_id):
-        endpoint = f"{self.base_url}/status/{session_id}"
+        access_token = self._get_access_token()
+        if not access_token:
+            return {'status': 'error', 'message': 'Failed to get access token'}
+
+        endpoint = f"{self.base_url}/v1/online-installments/applications/{session_id}"
         
         headers = {
-            'apikey': self.api_key,
+            'Authorization': f'Bearer {access_token}',
             'merchant-id': self.merchant_id
         }
 
