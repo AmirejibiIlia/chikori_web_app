@@ -127,3 +127,47 @@ footer {
   margin-top: 2rem;
   border-top: 1px solid #e6e6e6;
 }
+
+.header-content {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.facebook-button {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  background-color: #1877f2;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.facebook-button:hover {
+  background-color: #166fe5;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.facebook-button i {
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .facebook-button {
+    width: 36px;
+    height: 36px;
+    right: 10px;
+  }
+  
+  .facebook-button i {
+    font-size: 18px;
+  }
+}
