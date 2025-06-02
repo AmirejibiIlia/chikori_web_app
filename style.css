@@ -171,3 +171,34 @@ footer {
     font-size: 18px;
   }
 }
+
+.payment-status {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 30px;
+    border-radius: 8px;
+    z-index: 1000;
+    text-align: center;
+    animation: slideDown 0.3s ease-out;
+}
+
+.payment-status.success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.payment-status.error {
+    background-color: #f44336;
+    color: white;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translate(-50%, -100%);
+    }
+    to {
+        transform: translate(-50%, 0);
+    }
+}

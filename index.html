@@ -9,6 +9,10 @@
 </head> 
 <body>
 
+  <div id="payment-status" class="payment-status" style="display: none;">
+    <div class="status-message"></div>
+  </div>
+
   <header>
     <div class="header-content">
       <h1>აირჩიეთ სასურველი პროდუქტი</h1>
@@ -162,6 +166,32 @@
       };
       tbcInstallment.initiateInstallment(productData);
     }
+
+    // Add payment status handling
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get('status');
+      const statusDiv = document.getElementById('payment-status');
+      const statusMessage = statusDiv.querySelector('.status-message');
+
+      if (status) {
+        statusDiv.style.display = 'block';
+        if (status === 'success') {
+          statusMessage.textContent = 'გადახდა წარმატებით დასრულდა!';
+          statusDiv.className = 'payment-status success';
+        } else if (status === 'failure') {
+          statusMessage.textContent = 'გადახდა ვერ შესრულდა. გთხოვთ სცადოთ თავიდან.';
+          statusDiv.className = 'payment-status error';
+        }
+        
+        // Hide the message after 5 seconds
+        setTimeout(() => {
+          statusDiv.style.display = 'none';
+          // Remove status from URL
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }, 5000);
+      }
+    };
   </script>
 
 </body>

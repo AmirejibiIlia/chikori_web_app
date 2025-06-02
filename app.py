@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory, render_template_string, request, jsonify, session
+from flask import Flask, send_from_directory, render_template_string, request, jsonify, session, redirect, url_for
 from flask_cors import CORS
 import os
 import hmac
@@ -62,7 +62,10 @@ class TBCInstallmentAPI:
             "pricePerMonth": product_data.get('pricePerMonth'),
             "invoiceId": f"INV-{datetime.now().strftime('%Y%m%d%H%M%S')}",
             "installmentType": product_data.get('installmentType', 'standard'),
-            "preAuth": True
+            "preAuth": True,
+            "successRedirectUrl": f"{request.host_url}payment-success",
+            "failureRedirectUrl": f"{request.host_url}payment-failure",
+            "callbackUrl": f"{request.host_url}tbc-callback"
         }
 
         headers = {
@@ -74,6 +77,20 @@ class TBCInstallmentAPI:
 
         try:
             response = requests.post(endpoint, json=payload, headers=headers)
+            return response.json()
+        except Exception as e:
+            return {'status': 'error', 'message': str(e)}
+
+    def confirm_installment(self, session_id):
+        endpoint = f"{self.base_url}/confirm/{session_id}"
+        
+        headers = {
+            'apikey': self.api_key,
+            'merchant-id': self.merchant_id
+        }
+
+        try:
+            response = requests.post(endpoint, headers=headers)
             return response.json()
         except Exception as e:
             return {'status': 'error', 'message': str(e)}
@@ -120,6 +137,14 @@ def initiate_tbc_installment():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+@app.route('/api/tbc/confirm/<session_id>', methods=['POST'])
+def confirm_tbc_installment(session_id):
+    try:
+        result = tbc_client.confirm_installment(session_id)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
 @app.route('/api/tbc/status/<session_id>', methods=['GET'])
 def check_tbc_status(session_id):
     try:
@@ -127,6 +152,20 @@ def check_tbc_status(session_id):
         return jsonify(result)
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/payment-success')
+def payment_success():
+    session_id = request.args.get('sessionId')
+    if session_id:
+        # Confirm the installment after successful redirect
+        result = tbc_client.confirm_installment(session_id)
+        if result.get('status') == 'success':
+            return redirect(url_for('home', status='success'))
+    return redirect(url_for('home', status='error'))
+
+@app.route('/payment-failure')
+def payment_failure():
+    return redirect(url_for('home', status='failure'))
 
 @app.route('/tbc-callback', methods=['POST'])
 def tbc_callback():
@@ -145,17 +184,13 @@ def tbc_callback():
             return jsonify({'status': 'error', 'message': 'Invalid signature'}), 400
         
         data = request.json
+        session_id = data.get('sessionId')
         
-        # Handle different status updates
         if data['status'] == 'success':
-            # Process successful installment
-            print(f"Successful installment for session {data.get('sessionId')}")
-            # Implement your order fulfillment logic here
-            pass
-        elif data['status'] == 'failed':
-            # Handle failed installment
-            print(f"Failed installment for session {data.get('sessionId')}")
-            pass
+            # Confirm the installment
+            confirm_result = tbc_client.confirm_installment(session_id)
+            if confirm_result.get('status') != 'success':
+                return jsonify({'status': 'error', 'message': 'Confirmation failed'}), 500
         
         return jsonify({'status': 'success'})
     except Exception as e:
