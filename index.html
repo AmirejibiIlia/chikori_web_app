@@ -25,11 +25,11 @@
   <main>
     <div class="product-grid">
 
-      <div class="product-card" onclick="toggleDropdown('table')">
+      <div class="product-card" id="table" onclick="toggleDropdown('table')">
         <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp" alt="მაგიდა" />
         <h2>კარადა</h2>
         <p class="price">₾250</p>
-        <div class="dropdown" id="table">
+        <div class="dropdown">
           <h3>💳 გადახდის მეთოდები</h3>
           <div class="main-options">
             <button class="main-option-btn" onclick="showSubOptions('table', 'later')">გადახდა განაწილებით</button>
@@ -46,11 +46,11 @@
         </div>
       </div>
 
-      <div class="product-card" onclick="toggleDropdown('bed')">
+      <div class="product-card" id="bed" onclick="toggleDropdown('bed')">
         <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp" alt="საწოლი" />
         <h2>საწოლი</h2>
         <p class="price">₾650</p>
-        <div class="dropdown" id="bed">
+        <div class="dropdown">
           <h3>💳 გადახდის მეთოდები</h3>
           <div class="main-options">
             <button class="main-option-btn" onclick="showSubOptions('bed', 'later')">გადახდა განაწილებით</button>
@@ -67,11 +67,11 @@
         </div>
       </div>
 
-      <div class="product-card" onclick="toggleDropdown('sofa')">
+      <div class="product-card" id="sofa" onclick="toggleDropdown('sofa')">
         <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="კუთხის დივანი" />
         <h2>სამზარეულოს კუთხე</h2>
         <p class="price">₾650</p>
-        <div class="dropdown" id="sofa">
+        <div class="dropdown">
           <h3>💳 გადახდის მეთოდები</h3>
           <div class="main-options">
             <button class="main-option-btn" onclick="showSubOptions('sofa', 'later')">გადახდა განაწილებით</button>
@@ -88,11 +88,11 @@
         </div>
       </div>
 
-      <div class="product-card" onclick="toggleDropdown('desk')">
+      <div class="product-card" id="desk" onclick="toggleDropdown('desk')">
         <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp" alt="სამუშაო მაგიდა" />
         <h2>სამუშაო მაგიდა</h2>
         <p class="price">₾400</p>
-        <div class="dropdown" id="desk">
+        <div class="dropdown">
           <h3>💳 გადახდის მეთოდები</h3>
           <div class="main-options">
             <button class="main-option-btn" onclick="showSubOptions('desk', 'later')">გადახდა განაწილებით</button>
@@ -174,13 +174,18 @@
     }
 
     function initiateTBCInstallment(productId, price, sku, installmentType) {
+      const productCard = document.getElementById(productId);
+      const productName = productCard.querySelector('h2').textContent;
+      
       const productData = {
         id: sku,
         price: price,
-        name: document.querySelector(`#${productId} h2`).textContent,
+        name: productName,
         installmentType: installmentType
       };
-      tbcInstallment.initiateInstallment(productData);
+      
+      console.log('Product data:', productData); // Debug log
+      window.tbcInstallment.initiateInstallment(productData);
     }
 
     // Add payment status handling
