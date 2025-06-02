@@ -199,6 +199,13 @@ def tbc_callback():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+@app.route('/api/tbc-credentials')
+def tbc_credentials():
+    return jsonify({
+        'apiKey': TBC_API_KEY,
+        'merchantId': TBC_MERCHANT_ID
+    })
+
 if __name__ == '__main__':
     # Ensure all required environment variables are set
     required_env_vars = ['TBC_API_KEY', 'TBC_MERCHANT_ID', 'FLASK_SECRET_KEY']

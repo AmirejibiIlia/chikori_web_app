@@ -116,6 +116,22 @@
     <p>შპს ჩიკორი. კონტაქტი: 555139900, 2025 წელი</p>
   </footer>
 
+  <!-- Add TBC credentials from server -->
+  <script>
+    // Fetch TBC credentials from server
+    fetch('/api/tbc-credentials')
+      .then(response => response.json())
+      .then(credentials => {
+        // Initialize TBC integration with actual credentials
+        window.tbcInstallment = new TBCInstallment(
+          credentials.apiKey,
+          credentials.merchantId
+        );
+      })
+      .catch(error => {
+        console.error('Error loading TBC credentials:', error);
+      });
+  </script>
   <script src="tbc_integration.js"></script>
   <script>
     function toggleDropdown(id) {
