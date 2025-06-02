@@ -12,6 +12,14 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+# Debug: Print loaded environment variables
+print("=== Loaded Environment Variables ===")
+print(f"TBC_API_KEY: {os.getenv('TBC_API_KEY')}")
+print(f"TBC_MERCHANT_ID: {os.getenv('TBC_MERCHANT_ID')}")
+print(f"TBC_CAMPAIGN_ID: {os.getenv('TBC_CAMPAIGN_ID')}")
+print(f"Has TBC_SECRET: {'Yes' if os.getenv('TBC_SECRET') else 'No'}")
+print("================================")
+
 app = Flask(__name__, static_folder='.', static_url_path='')
 
 # Configure CORS to allow requests from your Render domain
@@ -34,11 +42,15 @@ app.config.update(
 app.secret_key = os.getenv('FLASK_SECRET_KEY', secrets.token_hex(16))
 
 # TBC API Configuration
-TBC_API_KEY = os.getenv('TBC_API_KEY', 'YOUR_API_KEY_HERE')
-TBC_SECRET = os.getenv('TBC_SECRET', 'YOUR_SECRET_HERE')
-TBC_MERCHANT_ID = os.getenv('TBC_MERCHANT_ID', 'YOUR_MERCHANT_ID_HERE')
-TBC_CAMPAIGN_ID = os.getenv('TBC_CAMPAIGN_ID', '204')  # Default to test campaign ID
-TBC_API_BASE_URL = 'https://api.tbcbank.ge/v1/online-installments'
+TBC_API_KEY = os.getenv('TBC_API_KEY')
+TBC_SECRET = os.getenv('TBC_SECRET')
+TBC_MERCHANT_ID = os.getenv('TBC_MERCHANT_ID')
+TBC_CAMPAIGN_ID = os.getenv('TBC_CAMPAIGN_ID', '204')
+TBC_API_BASE_URL = 'https://api.tbcbank.ge/v1/online-installments/sandbox'
+
+if not TBC_API_KEY or not TBC_MERCHANT_ID or not TBC_SECRET:
+    print("WARNING: Missing TBC credentials!")
+    print("Please ensure your .env file exists and contains the correct credentials.")
 
 class TBCInstallmentAPI:
     def __init__(self, api_key, merchant_id, base_url):
@@ -48,6 +60,7 @@ class TBCInstallmentAPI:
         self.base_url = base_url
 
     def _generate_signature(self, payload):
+        # Use the secret key for HMAC signature generation
         return hmac.new(
             self.secret.encode('utf-8'),
             json.dumps(payload, sort_keys=True).encode('utf-8'),
@@ -55,33 +68,65 @@ class TBCInstallmentAPI:
         ).hexdigest()
 
     def initiate_installment(self, product_data):
-        endpoint = f"{self.base_url}/initiate"
-        
-        payload = {
-            "priceTotal": product_data['price'],
-            "productId": product_data['id'],
-            "quantity": 1,
-            "campaignId": os.getenv('TBC_CAMPAIGN_ID', '204'),  # Use campaign ID from env
-            "pricePerMonth": product_data.get('pricePerMonth'),
-            "invoiceId": f"INV-{datetime.now().strftime('%Y%m%d%H%M%S')}",
-            "installmentType": product_data.get('installmentType', 'standard'),
-            "preAuth": True,
-            "successRedirectUrl": f"{request.host_url}payment-success",
-            "failureRedirectUrl": f"{request.host_url}payment-failure",
-            "callbackUrl": f"{request.host_url}tbc-callback"
-        }
-
-        headers = {
-            'Content-Type': 'application/json',
-            'apikey': self.api_key,
-            'merchant-id': self.merchant_id,
-            'signature': self._generate_signature(payload)
-        }
-
         try:
+            endpoint = f"{self.base_url}/initiate"
+            
+            payload = {
+                "priceTotal": str(product_data['price']),
+                "productId": product_data['id'],
+                "quantity": "1",
+                "campaignId": TBC_CAMPAIGN_ID,
+                "merchantId": self.merchant_id,
+                "invoiceId": f"INV-{datetime.now().strftime('%Y%m%d%H%M%S')}",
+                "installmentType": product_data.get('installmentType', 'standard'),
+                "preAuth": True,
+                "successRedirectUrl": f"{request.host_url}payment-success",
+                "failureRedirectUrl": f"{request.host_url}payment-failure",
+                "callbackUrl": f"{request.host_url}tbc-callback"
+            }
+
+            # Generate signature
+            signature = self._generate_signature(payload)
+
+            headers = {
+                'Content-Type': 'application/json',
+                'apikey': self.api_key,
+                'merchant-id': self.merchant_id,
+                'signature': signature
+            }
+
+            print("=== TBC API Request ===")
+            print(f"Using API Key: {self.api_key}")
+            print(f"Using Merchant ID: {self.merchant_id}")
+            print(f"Endpoint: {endpoint}")
+            print(f"Headers: {headers}")
+            print(f"Payload: {payload}")
+            print("=====================")
+
             response = requests.post(endpoint, json=payload, headers=headers)
-            return response.json()
+            
+            print("=== TBC API Response ===")
+            print(f"Status Code: {response.status_code}")
+            print(f"Response Body: {response.text}")
+            print("=====================")
+
+            if response.ok:
+                return response.json()
+            else:
+                error_msg = response.text
+                try:
+                    error_json = response.json()
+                    if 'detail' in error_json:
+                        error_msg = error_json['detail']
+                except:
+                    pass
+                return {
+                    'status': 'error',
+                    'message': f"Payment initialization failed: {error_msg}"
+                }
+
         except Exception as e:
+            print(f"Exception in TBC API call: {str(e)}")
             return {'status': 'error', 'message': str(e)}
 
     def confirm_installment(self, session_id):
@@ -129,15 +174,33 @@ def static_proxy(path):
 def initiate_tbc_installment():
     try:
         product_data = request.json
+        print(f"Received product data: {product_data}")
+        
+        if not TBC_API_KEY or TBC_API_KEY == 'YOUR_API_KEY_HERE':
+            return jsonify({
+                'status': 'error',
+                'message': 'TBC API key not configured'
+            }), 500
+            
+        if not TBC_MERCHANT_ID or TBC_MERCHANT_ID == 'YOUR_MERCHANT_ID_HERE':
+            return jsonify({
+                'status': 'error',
+                'message': 'TBC Merchant ID not configured'
+            }), 500
+
         result = tbc_client.initiate_installment(product_data)
-        
-        if result.get('status') == 'success':
-            # Store session information
-            session['tbc_session_id'] = result.get('sessionId')
-            session['invoice_id'] = product_data.get('invoiceId')
-        
-        return jsonify(result)
+        print(f"TBC initiation result: {result}")
+
+        if 'redirectUrl' in result:
+            return jsonify({
+                'status': 'success',
+                'redirectUrl': result['redirectUrl']
+            })
+        else:
+            return jsonify(result), 400
+
     except Exception as e:
+        print(f"Exception in initiate_tbc_installment: {str(e)}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @app.route('/api/tbc/confirm/<session_id>', methods=['POST'])

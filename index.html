@@ -25,11 +25,13 @@
   <main>
     <div class="product-grid">
 
-      <div class="product-card" id="table" onclick="toggleDropdown('table')">
-        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp" alt="მაგიდა" />
-        <h2>კარადა</h2>
-        <p class="price">₾250</p>
-        <div class="dropdown">
+      <div class="product-card" id="table">
+        <div class="product-info" onclick="toggleDropdown('table')">
+          <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp" alt="მაგიდა" />
+          <h2>კარადა</h2>
+          <p class="price">₾250</p>
+        </div>
+        <div class="dropdown" id="dropdown-table" style="display: none;">
           <h3>💳 გადახდის მეთოდები</h3>
           <div class="main-options">
             <button class="main-option-btn" onclick="showSubOptions('table', 'later')">გადახდა განაწილებით</button>
@@ -46,11 +48,13 @@
         </div>
       </div>
 
-      <div class="product-card" id="bed" onclick="toggleDropdown('bed')">
-        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp" alt="საწოლი" />
-        <h2>საწოლი</h2>
-        <p class="price">₾650</p>
-        <div class="dropdown">
+      <div class="product-card" id="bed">
+        <div class="product-info" onclick="toggleDropdown('bed')">
+          <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp" alt="საწოლი" />
+          <h2>საწოლი</h2>
+          <p class="price">₾650</p>
+        </div>
+        <div class="dropdown" id="dropdown-bed" style="display: none;">
           <h3>💳 გადახდის მეთოდები</h3>
           <div class="main-options">
             <button class="main-option-btn" onclick="showSubOptions('bed', 'later')">გადახდა განაწილებით</button>
@@ -67,11 +71,13 @@
         </div>
       </div>
 
-      <div class="product-card" id="sofa" onclick="toggleDropdown('sofa')">
-        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="კუთხის დივანი" />
-        <h2>სამზარეულოს კუთხე</h2>
-        <p class="price">₾650</p>
-        <div class="dropdown">
+      <div class="product-card" id="sofa">
+        <div class="product-info" onclick="toggleDropdown('sofa')">
+          <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="კუთხის დივანი" />
+          <h2>სამზარეულოს კუთხე</h2>
+          <p class="price">₾650</p>
+        </div>
+        <div class="dropdown" id="dropdown-sofa" style="display: none;">
           <h3>💳 გადახდის მეთოდები</h3>
           <div class="main-options">
             <button class="main-option-btn" onclick="showSubOptions('sofa', 'later')">გადახდა განაწილებით</button>
@@ -88,11 +94,13 @@
         </div>
       </div>
 
-      <div class="product-card" id="desk" onclick="toggleDropdown('desk')">
-        <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp" alt="სამუშაო მაგიდა" />
-        <h2>სამუშაო მაგიდა</h2>
-        <p class="price">₾400</p>
-        <div class="dropdown">
+      <div class="product-card" id="desk">
+        <div class="product-info" onclick="toggleDropdown('desk')">
+          <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp" alt="სამუშაო მაგიდა" />
+          <h2>სამუშაო მაგიდა</h2>
+          <p class="price">₾400</p>
+        </div>
+        <div class="dropdown" id="dropdown-desk" style="display: none;">
           <h3>💳 გადახდის მეთოდები</h3>
           <div class="main-options">
             <button class="main-option-btn" onclick="showSubOptions('desk', 'later')">გადახდა განაწილებით</button>
@@ -135,7 +143,7 @@
   <script src="tbc_integration.js"></script>
   <script>
     function toggleDropdown(id) {
-      const dropdown = document.getElementById(id);
+      const dropdown = document.getElementById(`dropdown-${id}`);
       const isVisible = dropdown.style.display === "block";
       
       // Close all dropdowns first
@@ -148,6 +156,9 @@
       
       // Toggle current dropdown
       dropdown.style.display = isVisible ? "none" : "block";
+      
+      // Prevent event bubbling
+      event.stopPropagation();
     }
 
     function showSubOptions(productId, optionType) {
@@ -159,14 +170,12 @@
       const targetSubOption = document.getElementById(`${productId}-${optionType}`);
       targetSubOption.style.display = "block";
       
-      // Prevent event bubbling to avoid closing the dropdown
+      // Prevent event bubbling
       event.stopPropagation();
     }
 
     function selectOption(productId, option) {
       console.log(`Selected ${option} for ${productId}`);
-      // Here you can add logic to process the selection
-      // For example, redirect to payment or store the selection
       alert(`თქვენ აირჩიეთ: ${option}`);
       
       // Prevent event bubbling
@@ -186,6 +195,9 @@
       
       console.log('Product data:', productData); // Debug log
       window.tbcInstallment.initiateInstallment(productData);
+      
+      // Prevent event bubbling
+      event.stopPropagation();
     }
 
     // Add payment status handling
