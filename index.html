@@ -32,12 +32,12 @@
             <button class="main-option-btn" onclick="showSubOptions('table', 'installment')">განვადება</button>
           </div>
           <div class="sub-options" id="table-later" style="display: none;">
-            <div class="sub-option" onclick="selectOption('table', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠 </div>
-            <div class="sub-option" onclick="selectOption('table', 'განაწილება')">განაწილება 🔵</div>
+            <div class="sub-option" onclick="selectOption('table', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
+            <div class="sub-option" onclick="initiateTBCInstallment('table', 250, 'TABLE_001', 'installment_split')">განაწილება 🔵</div>
           </div>
           <div class="sub-options" id="table-installment" style="display: none;">
             <div class="sub-option" onclick="selectOption('table', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
-            <div class="sub-option" onclick="selectOption('table', 'თიბისი')">თიბისი 🔵</div>
+            <div class="sub-option" onclick="initiateTBCInstallment('table', 250, 'TABLE_001', 'installment_standard')">თიბისი 🔵</div>
           </div>
         </div>
       </div>
@@ -54,11 +54,11 @@
           </div>
           <div class="sub-options" id="bed-later" style="display: none;">
             <div class="sub-option" onclick="selectOption('bed', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
-            <div class="sub-option" onclick="selectOption('bed', 'განაწილება')">განაწილება 🔵</div>
+            <div class="sub-option" onclick="initiateTBCInstallment('bed', 650, 'BED_001', 'installment_split')">განაწილება 🔵</div>
           </div>
           <div class="sub-options" id="bed-installment" style="display: none;">
             <div class="sub-option" onclick="selectOption('bed', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
-            <div class="sub-option" onclick="selectOption('bed', 'თიბისი')">თიბისი 🔵</div>
+            <div class="sub-option" onclick="initiateTBCInstallment('bed', 650, 'BED_001', 'installment_standard')">თიბისი 🔵</div>
           </div>
         </div>
       </div>
@@ -75,11 +75,11 @@
           </div>
           <div class="sub-options" id="sofa-later" style="display: none;">
             <div class="sub-option" onclick="selectOption('sofa', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
-            <div class="sub-option" onclick="selectOption('sofa', 'განაწილება')">განაწილება 🔵</div>
+            <div class="sub-option" onclick="initiateTBCInstallment('sofa', 650, 'SOFA_001', 'installment_split')">განაწილება 🔵</div>
           </div>
           <div class="sub-options" id="sofa-installment" style="display: none;">
             <div class="sub-option" onclick="selectOption('sofa', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
-            <div class="sub-option" onclick="selectOption('sofa', 'თიბისი')">თიბისი 🔵</div>
+            <div class="sub-option" onclick="initiateTBCInstallment('sofa', 650, 'SOFA_001', 'installment_standard')">თიბისი 🔵</div>
           </div>
         </div>
       </div>
@@ -95,12 +95,12 @@
             <button class="main-option-btn" onclick="showSubOptions('desk', 'installment')">განვადება</button>
           </div>
           <div class="sub-options" id="desk-later" style="display: none;">
-            <div class="sub-option" onclick="selectOption('desk', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠 </div>
-            <div class="sub-option" onclick="selectOption('desk', 'განაწილება')">განაწილება  🔵</div>
+            <div class="sub-option" onclick="selectOption('desk', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
+            <div class="sub-option" onclick="initiateTBCInstallment('desk', 400, 'DESK_001', 'installment_split')">განაწილება 🔵</div>
           </div>
           <div class="sub-options" id="desk-installment" style="display: none;">
-            <div class="sub-option" onclick="selectOption('desk', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠 </div>
-            <div class="sub-option" onclick="selectOption('desk', 'თიბისი')">თიბისი 🔵</div>
+            <div class="sub-option" onclick="selectOption('desk', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
+            <div class="sub-option" onclick="initiateTBCInstallment('desk', 400, 'DESK_001', 'installment_standard')">თიბისი 🔵</div>
           </div>
         </div>
       </div>
@@ -112,6 +112,7 @@
     <p>შპს ჩიკორი. კონტაქტი: 555139900, 2025 წელი</p>
   </footer>
 
+  <script src="tbc_integration.js"></script>
   <script>
     function toggleDropdown(id) {
       const dropdown = document.getElementById(id);
@@ -150,6 +151,16 @@
       
       // Prevent event bubbling
       event.stopPropagation();
+    }
+
+    function initiateTBCInstallment(productId, price, sku, installmentType) {
+      const productData = {
+        id: sku,
+        price: price,
+        name: document.querySelector(`#${productId} h2`).textContent,
+        installmentType: installmentType
+      };
+      tbcInstallment.initiateInstallment(productData);
     }
   </script>
 
