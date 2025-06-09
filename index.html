@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ჩიკორი - პროდუქცია</title>
+  <title>ვინინგი - ავეჯი</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head> 
@@ -13,124 +13,257 @@
     <div class="status-message"></div>
   </div>
 
-  <header>
-    <div class="header-content">
-      <h1>აირჩიეთ სასურველი პროდუქტი</h1>
-      <a href="https://www.facebook.com/p/Winning%E1%83%95%E1%83%98%E1%83%9C%E1%83%98%E1%83%9C%E1%83%92%E1%83%98-%E1%83%A7%E1%83%95%E1%83%94%E1%83%9A%E1%83%90%E1%83%A4%E1%83%94%E1%83%A0%E1%83%98-%E1%83%A4%E1%83%90%E1%83%A1%E1%83%93%E1%83%90%E1%83%99%E1%83%9A%E1%83%94%E1%83%91%E1%83%98%E1%83%97-100064303195219/" target="_blank" class="facebook-button">
-        <i class="fab fa-facebook-f"></i>
-      </a>
+  <!-- Top Banner -->
+  <div class="top-banner">
+    <div class="container">
+      <div class="phone-number">
+        <i class="fas fa-phone-alt"></i>
+        <span>+995 555139900</span>
+      </div>
+      <div class="promo-text">
+        მიიღე ფასდაკლება შერჩეულ პროდუქტებზე
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <h1>ვინინგი</h1>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="მოძებნეთ პროდუქტი..." />
+        <button type="button"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="header-actions">
+        <a href="https://www.facebook.com/p/Winning%E1%83%95%E1%83%98%E1%83%9C%E1%83%98%E1%83%9C%E1%83%92%E1%83%98-%E1%83%A7%E1%83%95%E1%83%94%E1%83%9A%E1%83%90%E1%83%A4%E1%83%94%E1%83%A0%E1%83%98-%E1%83%A4%E1%83%90%E1%83%A1%E1%83%93%E1%83%90%E1%83%99%E1%83%9A%E1%83%94%E1%83%91%E1%83%98%E1%83%97-100064303195219/" target="_blank" class="facebook-button">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="cart-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </a>
+        <button class="login-btn">
+          <i class="fas fa-user"></i>
+          <span>შესვლა</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main>
-    <div class="product-grid">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h2>მოითხოვე ფასდაკლება<br>შერჩეულ ავეჯზე</h2>
+      <button class="buy-now" onclick="scrollToProducts()">შეიძინე ახლავე</button>
+    </div>
+    <div class="hero-image">
+      <img src="https://wigmoretrading.com/wp-content/uploads/2024/03/iStock-1405630640.jpg" alt="Luxury Modern Furniture" />
+    </div>
+  </section>
 
-      <div class="product-card" id="table">
-        <div class="product-info" onclick="toggleDropdown('table')">
-          <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp" alt="მაგიდა" />
-          <h2>კარადა</h2>
-          <p class="price">₾250</p>
+  <!-- Filters -->
+  <div class="filters-section">
+    <div class="container">
+      <div class="filters">
+        <div class="filter-group">
+          <select class="filter-select">
+            <option value="">ფასი</option>
+            <option value="0-500">0₾ - 500₾</option>
+            <option value="500-1000">500₾ - 1000₾</option>
+            <option value="1000+">1000₾ +</option>
+          </select>
         </div>
-        <div class="dropdown" id="dropdown-table" style="display: none;">
-          <h3>💳 გადახდის მეთოდები</h3>
-          <div class="main-options">
-            <button class="main-option-btn" onclick="showSubOptions('table', 'later')">გადახდა განაწილებით</button>
-            <button class="main-option-btn" onclick="showSubOptions('table', 'installment')">განვადება</button>
-          </div>
-          <div class="sub-options" id="table-later" style="display: none;">
-            <div class="sub-option" onclick="selectOption('table', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
-            <div class="sub-option" onclick="initiateTBCInstallment('table', 250, 'TABLE_001', 'installment_split')">განაწილება 🔵</div>
-          </div>
-          <div class="sub-options" id="table-installment" style="display: none;">
-            <div class="sub-option" onclick="selectOption('table', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
-            <div class="sub-option" onclick="initiateTBCInstallment('table', 250, 'TABLE_001', 'installment_standard')">თიბისი 🔵</div>
-          </div>
+        <div class="sort-group">
+          <select class="sort-select">
+            <option value="">დალაგება</option>
+            <option value="price-low">ფასი: დაბლიდან მაღლა</option>
+            <option value="price-high">ფასი: მაღლიდან დაბლა</option>
+            <option value="newest">უახლესი</option>
+          </select>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="product-card" id="bed">
-        <div class="product-info" onclick="toggleDropdown('bed')">
-          <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp" alt="საწოლი" />
-          <h2>საწოლი</h2>
-          <p class="price">₾650</p>
+  <!-- Products Grid -->
+  <main class="products-section" id="products">
+    <div class="container">
+      <h2 class="section-title">ავეჯი თქვენთვის</h2>
+      <div class="product-grid">
+        <!-- Product cards -->
+        <div class="product-card" id="table">
+          <div class="product-info">
+            <div class="wishlist-icon">
+              <i class="far fa-heart"></i>
+            </div>
+            <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp" alt="კარადა" />
+            <h3>კარადა</h3>
+            <div class="product-meta">
+              <p class="price">₾250</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(4.0)</span>
+              </div>
+            </div>
+            <button class="purchase-btn" onclick="toggleDropdown('table')">შეძენა</button>
+          </div>
+          <div class="dropdown" id="dropdown-table" style="display: none;">
+            <h3>💳 გადახდის მეთოდები</h3>
+            <div class="main-options">
+              <button class="main-option-btn" onclick="showSubOptions('table', 'later')">გადახდა განაწილებით</button>
+              <button class="main-option-btn" onclick="showSubOptions('table', 'installment')">განვადება</button>
+            </div>
+            <div class="sub-options" id="table-later" style="display: none;">
+              <div class="sub-option" onclick="selectOption('table', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
+              <div class="sub-option" onclick="initiateTBCInstallment('table', 250, 'TABLE_001', 'installment_split')">განაწილება 🔵</div>
+            </div>
+            <div class="sub-options" id="table-installment" style="display: none;">
+              <div class="sub-option" onclick="selectOption('table', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
+              <div class="sub-option" onclick="initiateTBCInstallment('table', 250, 'TABLE_001', 'installment_standard')">თიბისი 🔵</div>
+            </div>
+          </div>
         </div>
-        <div class="dropdown" id="dropdown-bed" style="display: none;">
-          <h3>💳 გადახდის მეთოდები</h3>
-          <div class="main-options">
-            <button class="main-option-btn" onclick="showSubOptions('bed', 'later')">გადახდა განაწილებით</button>
-            <button class="main-option-btn" onclick="showSubOptions('bed', 'installment')">განვადება</button>
+
+        <div class="product-card" id="bed">
+          <div class="product-info">
+            <div class="wishlist-icon">
+              <i class="far fa-heart"></i>
+            </div>
+            <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp" alt="საწოლი" />
+            <h3>საწოლი</h3>
+            <div class="product-meta">
+              <p class="price">₾650</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(4.5)</span>
+              </div>
+            </div>
+            <button class="purchase-btn" onclick="toggleDropdown('bed')">შეძენა</button>
           </div>
-          <div class="sub-options" id="bed-later" style="display: none;">
-            <div class="sub-option" onclick="selectOption('bed', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
-            <div class="sub-option" onclick="initiateTBCInstallment('bed', 650, 'BED_001', 'installment_split')">განაწილება 🔵</div>
-          </div>
-          <div class="sub-options" id="bed-installment" style="display: none;">
-            <div class="sub-option" onclick="selectOption('bed', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
-            <div class="sub-option" onclick="initiateTBCInstallment('bed', 650, 'BED_001', 'installment_standard')">თიბისი 🔵</div>
+          <div class="dropdown" id="dropdown-bed" style="display: none;">
+            <h3>💳 გადახდის მეთოდები</h3>
+            <div class="main-options">
+              <button class="main-option-btn" onclick="showSubOptions('bed', 'later')">გადახდა განაწილებით</button>
+              <button class="main-option-btn" onclick="showSubOptions('bed', 'installment')">განვადება</button>
+            </div>
+            <div class="sub-options" id="bed-later" style="display: none;">
+              <div class="sub-option" onclick="selectOption('bed', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
+              <div class="sub-option" onclick="initiateTBCInstallment('bed', 650, 'BED_001', 'installment_split')">განაწილება 🔵</div>
+            </div>
+            <div class="sub-options" id="bed-installment" style="display: none;">
+              <div class="sub-option" onclick="selectOption('bed', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
+              <div class="sub-option" onclick="initiateTBCInstallment('bed', 650, 'BED_001', 'installment_standard')">თიბისი 🔵</div>
+            </div>
           </div>
         </div>
+
+        <div class="product-card" id="sofa">
+          <div class="product-info">
+            <div class="wishlist-icon">
+              <i class="far fa-heart"></i>
+            </div>
+            <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="კუთხის დივანი" />
+            <h3>სამზარეულოს კუთხე</h3>
+            <div class="product-meta">
+              <p class="price">₾650</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>(5.0)</span>
+              </div>
+            </div>
+            <button class="purchase-btn" onclick="toggleDropdown('sofa')">შეძენა</button>
+          </div>
+          <div class="dropdown" id="dropdown-sofa" style="display: none;">
+            <h3>💳 გადახდის მეთოდები</h3>
+            <div class="main-options">
+              <button class="main-option-btn" onclick="showSubOptions('sofa', 'later')">გადახდა განაწილებით</button>
+              <button class="main-option-btn" onclick="showSubOptions('sofa', 'installment')">განვადება</button>
+            </div>
+            <div class="sub-options" id="sofa-later" style="display: none;">
+              <div class="sub-option" onclick="selectOption('sofa', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
+              <div class="sub-option" onclick="initiateTBCInstallment('sofa', 650, 'SOFA_001', 'installment_split')">განაწილება 🔵</div>
+            </div>
+            <div class="sub-options" id="sofa-installment" style="display: none;">
+              <div class="sub-option" onclick="selectOption('sofa', 'საქართელოს ბანკი')">საქართველოს ბანკი 🟠</div>
+              <div class="sub-option" onclick="initiateTBCInstallment('sofa', 650, 'SOFA_001', 'installment_standard')">თიბისი 🔵</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" id="desk">
+          <div class="product-info">
+            <div class="wishlist-icon">
+              <i class="far fa-heart"></i>
+            </div>
+            <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp" alt="სამუშაო მაგიდა" />
+            <h3>სამუშაო მაგიდა</h3>
+            <div class="product-meta">
+              <p class="price">₾400</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>(4.0)</span>
+              </div>
+            </div>
+            <button class="purchase-btn" onclick="toggleDropdown('desk')">შეძენა</button>
+          </div>
+          <div class="dropdown" id="dropdown-desk" style="display: none;">
+            <h3>💳 გადახდის მეთოდები</h3>
+            <div class="main-options">
+              <button class="main-option-btn" onclick="showSubOptions('desk', 'later')">გადახდა განაწილებით</button>
+              <button class="main-option-btn" onclick="showSubOptions('desk', 'installment')">განვადება</button>
+            </div>
+            <div class="sub-options" id="desk-later" style="display: none;">
+              <div class="sub-option" onclick="selectOption('desk', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
+              <div class="sub-option" onclick="initiateTBCInstallment('desk', 400, 'DESK_001', 'installment_split')">განაწილება 🔵</div>
+            </div>
+            <div class="sub-options" id="desk-installment" style="display: none;">
+              <div class="sub-option" onclick="selectOption('desk', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
+              <div class="sub-option" onclick="initiateTBCInstallment('desk', 400, 'DESK_001', 'installment_standard')">თიბისი 🔵</div>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <div class="product-card" id="sofa">
-        <div class="product-info" onclick="toggleDropdown('sofa')">
-          <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="კუთხის დივანი" />
-          <h2>სამზარეულოს კუთხე</h2>
-          <p class="price">₾650</p>
-        </div>
-        <div class="dropdown" id="dropdown-sofa" style="display: none;">
-          <h3>💳 გადახდის მეთოდები</h3>
-          <div class="main-options">
-            <button class="main-option-btn" onclick="showSubOptions('sofa', 'later')">გადახდა განაწილებით</button>
-            <button class="main-option-btn" onclick="showSubOptions('sofa', 'installment')">განვადება</button>
-          </div>
-          <div class="sub-options" id="sofa-later" style="display: none;">
-            <div class="sub-option" onclick="selectOption('sofa', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
-            <div class="sub-option" onclick="initiateTBCInstallment('sofa', 650, 'SOFA_001', 'installment_split')">განაწილება 🔵</div>
-          </div>
-          <div class="sub-options" id="sofa-installment" style="display: none;">
-            <div class="sub-option" onclick="selectOption('sofa', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
-            <div class="sub-option" onclick="initiateTBCInstallment('sofa', 650, 'SOFA_001', 'installment_standard')">თიბისი 🔵</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" id="desk">
-        <div class="product-info" onclick="toggleDropdown('desk')">
-          <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp" alt="სამუშაო მაგიდა" />
-          <h2>სამუშაო მაგიდა</h2>
-          <p class="price">₾400</p>
-        </div>
-        <div class="dropdown" id="dropdown-desk" style="display: none;">
-          <h3>💳 გადახდის მეთოდები</h3>
-          <div class="main-options">
-            <button class="main-option-btn" onclick="showSubOptions('desk', 'later')">გადახდა განაწილებით</button>
-            <button class="main-option-btn" onclick="showSubOptions('desk', 'installment')">განვადება</button>
-          </div>
-          <div class="sub-options" id="desk-later" style="display: none;">
-            <div class="sub-option" onclick="selectOption('desk', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
-            <div class="sub-option" onclick="initiateTBCInstallment('desk', 400, 'DESK_001', 'installment_split')">განაწილება 🔵</div>
-          </div>
-          <div class="sub-options" id="desk-installment" style="display: none;">
-            <div class="sub-option" onclick="selectOption('desk', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
-            <div class="sub-option" onclick="initiateTBCInstallment('desk', 400, 'DESK_001', 'installment_standard')">თიბისი 🔵</div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </main>
 
   <footer>
-    <p>შპს ჩიკორი. კონტაქტი: 555139900, 2025 წელი</p>
+    <div class="container">
+      <p>შპს ჩიკორი | ტელ: +995 555139900 | © 2025</p>
+    </div>
   </footer>
 
-  <!-- Add TBC credentials from server -->
+  <!-- Scripts -->
+  <script src="tbc_integration.js"></script>
+  <script src="app.js"></script>
   <script>
-    // Fetch TBC credentials from server
+    // Add this new function for smooth scrolling
+    function scrollToProducts() {
+      const productsSection = document.getElementById('products');
+      productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // TBC Integration initialization
     fetch('/api/tbc-credentials')
       .then(response => response.json())
       .then(credentials => {
-        // Initialize TBC integration with actual credentials
         window.tbcInstallment = new TBCInstallment(
           credentials.apiKey,
           credentials.merchantId
@@ -139,9 +272,32 @@
       .catch(error => {
         console.error('Error loading TBC credentials:', error);
       });
-  </script>
-  <script src="tbc_integration.js"></script>
-  <script>
+
+    // Payment status handling
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get('status');
+      const statusDiv = document.getElementById('payment-status');
+      const statusMessage = statusDiv.querySelector('.status-message');
+
+      if (status) {
+        statusDiv.style.display = 'block';
+        if (status === 'success') {
+          statusMessage.textContent = 'გადახდა წარმატებით დასრულდა!';
+          statusDiv.className = 'payment-status success';
+        } else if (status === 'failure') {
+          statusMessage.textContent = 'გადახდა ვერ შესრულდა. გთხოვთ სცადოთ თავიდან.';
+          statusDiv.className = 'payment-status error';
+        }
+        
+        setTimeout(() => {
+          statusDiv.style.display = 'none';
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }, 5000);
+      }
+    };
+
+    // Dropdown functionality
     function toggleDropdown(id) {
       const dropdown = document.getElementById(`dropdown-${id}`);
       const isVisible = dropdown.style.display === "block";
@@ -181,50 +337,6 @@
       // Prevent event bubbling
       event.stopPropagation();
     }
-
-    function initiateTBCInstallment(productId, price, sku, installmentType) {
-      const productCard = document.getElementById(productId);
-      const productName = productCard.querySelector('h2').textContent;
-      
-      const productData = {
-        id: sku,
-        price: price,
-        name: productName,
-        installmentType: installmentType
-      };
-      
-      console.log('Product data:', productData); // Debug log
-      window.tbcInstallment.initiateInstallment(productData);
-      
-      // Prevent event bubbling
-      event.stopPropagation();
-    }
-
-    // Add payment status handling
-    window.onload = function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const status = urlParams.get('status');
-      const statusDiv = document.getElementById('payment-status');
-      const statusMessage = statusDiv.querySelector('.status-message');
-
-      if (status) {
-        statusDiv.style.display = 'block';
-        if (status === 'success') {
-          statusMessage.textContent = 'გადახდა წარმატებით დასრულდა!';
-          statusDiv.className = 'payment-status success';
-        } else if (status === 'failure') {
-          statusMessage.textContent = 'გადახდა ვერ შესრულდა. გთხოვთ სცადოთ თავიდან.';
-          statusDiv.className = 'payment-status error';
-        }
-        
-        // Hide the message after 5 seconds
-        setTimeout(() => {
-          statusDiv.style.display = 'none';
-          // Remove status from URL
-          window.history.replaceState({}, document.title, window.location.pathname);
-        }, 5000);
-      }
-    };
   </script>
 
 </body>
