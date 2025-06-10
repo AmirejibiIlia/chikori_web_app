@@ -361,23 +361,15 @@
         select.dispatchEvent(event);
       });
 
-      // Reset all products visibility and ensure correct ratings
-      const ratings = {
-        'table': {
-          stars: ['fas fa-star', 'fas fa-star', 'fas fa-star', 'fas fa-star', 'fas fa-star-half-alt'],
-          value: '4.9'
+      // Reset all products visibility and ensure correct payment options
+      const paymentOptions = {
+        'later': {
+          'ნაწილ-ნაწილ': '<img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG">',
+          'განაწილება': '<img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC">'
         },
-        'bed': {
-          stars: ['fas fa-star', 'fas fa-star', 'fas fa-star', 'fas fa-star', 'fas fa-star'],
-          value: '5.0'
-        },
-        'sofa': {
-          stars: ['fas fa-star', 'fas fa-star', 'fas fa-star', 'fas fa-star', 'fas fa-star'],
-          value: '5.0'
-        },
-        'desk': {
-          stars: ['fas fa-star', 'fas fa-star', 'fas fa-star', 'fas fa-star', 'fas fa-star-half-alt'],
-          value: '4.95'
+        'installment': {
+          'საქართველოს ბანკი': '<img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG">',
+          'თიბისი': '<img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC">'
         }
       };
 
@@ -388,21 +380,29 @@
         card.style.opacity = '1';
         card.style.visibility = 'visible';
 
-        // Update ratings
         const productId = card.id;
-        if (ratings[productId]) {
-          const ratingDiv = card.querySelector('.rating');
-          const stars = ratingDiv.querySelectorAll('i');
-          const ratingSpan = ratingDiv.querySelector('span');
-          
-          // Update stars
-          stars.forEach((star, index) => {
-            star.className = ratings[productId].stars[index];
-          });
-          
-          // Update rating value
-          ratingSpan.textContent = `(${ratings[productId].value})`;
-        }
+        
+        // Update later payment options
+        const laterOptions = card.querySelectorAll(`#${productId}-later .sub-option`);
+        laterOptions.forEach(option => {
+          const text = option.textContent.trim();
+          if (text.includes('ნაწილ-ნაწილ')) {
+            option.innerHTML = `ნაწილ-ნაწილ ${paymentOptions.later['ნაწილ-ნაწილ']}`;
+          } else if (text.includes('განაწილება')) {
+            option.innerHTML = `განაწილება ${paymentOptions.later['განაწილება']}`;
+          }
+        });
+
+        // Update installment options
+        const installmentOptions = card.querySelectorAll(`#${productId}-installment .sub-option`);
+        installmentOptions.forEach(option => {
+          const text = option.textContent.trim();
+          if (text.includes('საქართველოს ბანკი')) {
+            option.innerHTML = `საქართველოს ბანკი ${paymentOptions.installment['საქართველოს ბანკი']}`;
+          } else if (text.includes('თიბისი')) {
+            option.innerHTML = `თიბისი ${paymentOptions.installment['თიბისი']}`;
+          }
+        });
       });
 
       // Reset any active filter indicators
