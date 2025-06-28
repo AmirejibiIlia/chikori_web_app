@@ -190,6 +190,67 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// Payment processing function
+async function selectOption(productId, option) {
+    console.log(`Selected ${option} for ${productId}`);
+    
+    // Find the product
+    const product = products.find(p => p.id === productId);
+    if (!product) {
+        alert('პროდუქტი ვერ მოიძებნა');
+        return;
+    }
+    
+    // Handle TBC card payment
+    if (option === 'TBC card') {
+        try {
+            // Show loading state
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'იტვირთება...';
+            button.style.pointerEvents = 'none';
+            
+            // Create payment request
+            const response = await fetch('/api/create-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    amount: product.price
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success && result.checkout_url) {
+                // Redirect to Flitt payment page
+                window.location.href = result.checkout_url;
+            } else {
+                alert('გადახდის გახსნა ვერ მოხერხდა. გთხოვთ სცადოთ თავიდან.');
+                // Reset button
+                button.textContent = originalText;
+                button.style.pointerEvents = 'auto';
+            }
+            
+        } catch (error) {
+            console.error('Payment error:', error);
+            alert('გადახდის გახსნა ვერ მოხერხდა. გთხოვთ სცადოთ თავიდან.');
+            // Reset button
+            const button = event.target;
+            button.textContent = originalText;
+            button.style.pointerEvents = 'auto';
+        }
+    } else {
+        // For other payment options, show alert (placeholder)
+        alert(`თქვენ აირჩიეთ: ${option}`);
+    }
+    
+    // Prevent event bubbling
+    event.stopPropagation();
+}
+
 // Render products on page load
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function() {
