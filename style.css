@@ -617,16 +617,57 @@ footer {
   z-index: 1000;
   text-align: center;
   animation: slideDown 0.3s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 300px;
+  max-width: 500px;
+  position: relative;
+}
+
+.payment-status .status-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  padding-right: 2rem;
+}
+
+.payment-status .status-message i {
+  font-size: 1.2rem;
+}
+
+.payment-status .status-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.payment-status .status-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .payment-status.success {
   background-color: #4CAF50;
   color: var(--white);
+  border-left: 4px solid #45a049;
 }
 
 .payment-status.error {
   background-color: #f44336;
   color: var(--white);
+  border-left: 4px solid #d32f2f;
 }
 
 @keyframes slideDown {

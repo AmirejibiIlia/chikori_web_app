@@ -23,11 +23,6 @@ flitt_checkout = Checkout(api=flitt_api)
 def home():
     return send_from_directory('.', 'index.html')
 
-# Serve static files (css, js, images, etc.)
-@app.route('/<path:path>')
-def static_proxy(path):
-    return send_from_directory('.', path)
-
 @app.route('/api/create-payment', methods=['POST'])
 def create_payment():
     """Create a payment order and redirect to Flitt using official SDK"""
@@ -86,11 +81,9 @@ def create_payment():
         print(f"Exception in create_payment: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
-@app.route('/payment-result')
+@app.route('/payment-result', methods=['GET', 'POST'])
 def payment_result():
-    """Handle payment result redirect from Flitt"""
-    status = request.args.get('response_status')
-    
+    status = request.args.get('response_status') or request.form.get('response_status')
     if status == 'success':
         return redirect(url_for('home', status='success'))
     else:
@@ -123,6 +116,11 @@ def payment_callback():
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+# Serve static files (css, js, images, etc.) - This should be LAST
+@app.route('/<path:path>')
+def static_proxy(path):
+    return send_from_directory('.', path)
 
 def get_product_by_id(product_id):
     """Get product details by ID"""
