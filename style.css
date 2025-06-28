@@ -392,12 +392,14 @@ body {
 
 .main-options {
   display: flex;
+  flex-direction: column;
   gap: 0.75rem;
   margin-bottom: 1rem;
 }
 
 .main-option-btn {
   flex: 1;
+  min-width: 0;
   padding: 0.75rem 1rem;
   background-color: var(--light-gray);
   border: 1px solid var(--border-color);
@@ -406,10 +408,17 @@ body {
   font-weight: 500;
   color: var(--text-color);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  width: 100%;
 }
 
 .main-option-btn:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white);
+}
+
+.main-option-btn.active {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
   color: var(--white);
@@ -489,7 +498,36 @@ body {
   background-color: #edf4fc;
 }
 
+.sub-option[onclick*="TBC card"] {
+  border-color: #00a3e0;
+  color: #00a3e0;
+}
+
+.sub-option[onclick*="TBC card"]:hover {
+  background-color: #e6f6fc;
+}
+
+.sub-option[onclick*="BoG card"] {
+  border-color: #ff5b37;
+  color: #ff5b37;
+}
+
+.sub-option[onclick*="BoG card"]:hover {
+  background-color: #fff1ef;
+}
+
 /* Responsive adjustments for payment methods */
+@media (max-width: 1024px) {
+  .main-options {
+    gap: 0.4rem;
+  }
+
+  .main-option-btn {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
 @media (max-width: 768px) {
   .dropdown {
     padding: 1rem;
@@ -500,10 +538,12 @@ body {
     gap: 0.5rem;
   }
 
-  .main-option-btn,
-  .sub-option {
+  .main-option-btn {
     padding: 0.6rem;
     font-size: 0.85rem;
+    white-space: normal;
+    text-overflow: unset;
+    overflow: visible;
   }
 }
 

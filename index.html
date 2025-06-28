@@ -115,8 +115,9 @@
           <div class="dropdown" id="dropdown-table" style="display: none;">
             <h3>💳 გადახდის მეთოდები</h3>
             <div class="main-options">
-              <button class="main-option-btn" onclick="showSubOptions('table', 'later')">გადახდა განაწილებით</button>
+              <button class="main-option-btn" onclick="showSubOptions('table', 'later')">განაწილებით</button>
               <button class="main-option-btn" onclick="showSubOptions('table', 'installment')">განვადება</button>
+              <button class="main-option-btn" onclick="showSubOptions('table', 'card')">ბარათით გადახდა</button>
             </div>
             <div class="sub-options" id="table-later" style="display: none;">
               <div class="sub-option" onclick="selectOption('table', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
@@ -125,6 +126,10 @@
             <div class="sub-options" id="table-installment" style="display: none;">
               <div class="sub-option" onclick="selectOption('table', 'საქართველოს ბანკი')">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
               <div class="sub-option" onclick="initiateTBCInstallment('table', 250, 'TABLE_001', 'installment_standard')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+            </div>
+            <div class="sub-options" id="table-card" style="display: none;">
+              <div class="sub-option" onclick="selectOption('table', 'TBC card')">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+              <div class="sub-option" onclick="selectOption('table', 'BoG card')">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
             </div>
           </div>
         </div>
@@ -152,8 +157,9 @@
           <div class="dropdown" id="dropdown-bed" style="display: none;">
             <h3>💳 გადახდის მეთოდები</h3>
             <div class="main-options">
-              <button class="main-option-btn" onclick="showSubOptions('bed', 'later')">გადახდა განაწილებით</button>
+              <button class="main-option-btn" onclick="showSubOptions('bed', 'later')">განაწილებით</button>
               <button class="main-option-btn" onclick="showSubOptions('bed', 'installment')">განვადება</button>
+              <button class="main-option-btn" onclick="showSubOptions('bed', 'card')">ბარათით გადახდა</button>
             </div>
             <div class="sub-options" id="bed-later" style="display: none;">
               <div class="sub-option" onclick="selectOption('bed', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
@@ -162,6 +168,10 @@
             <div class="sub-options" id="bed-installment" style="display: none;">
               <div class="sub-option" onclick="selectOption('bed', 'საქართველოს ბანკი')">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
               <div class="sub-option" onclick="initiateTBCInstallment('bed', 650, 'BED_001', 'installment_standard')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+            </div>
+            <div class="sub-options" id="bed-card" style="display: none;">
+              <div class="sub-option" onclick="selectOption('bed', 'TBC card')">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+              <div class="sub-option" onclick="selectOption('bed', 'BoG card')">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
             </div>
           </div>
         </div>
@@ -189,8 +199,9 @@
           <div class="dropdown" id="dropdown-sofa" style="display: none;">
             <h3>💳 გადახდის მეთოდები</h3>
             <div class="main-options">
-              <button class="main-option-btn" onclick="showSubOptions('sofa', 'later')">გადახდა განაწილებით</button>
+              <button class="main-option-btn" onclick="showSubOptions('sofa', 'later')">განაწილებით</button>
               <button class="main-option-btn" onclick="showSubOptions('sofa', 'installment')">განვადება</button>
+              <button class="main-option-btn" onclick="showSubOptions('sofa', 'card')">ბარათით გადახდა</button>
             </div>
             <div class="sub-options" id="sofa-later" style="display: none;">
               <div class="sub-option" onclick="selectOption('sofa', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
@@ -199,6 +210,10 @@
             <div class="sub-options" id="sofa-installment" style="display: none;">
               <div class="sub-option" onclick="selectOption('sofa', 'საქართელოს ბანკი')">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
               <div class="sub-option" onclick="initiateTBCInstallment('sofa', 650, 'SOFA_001', 'installment_standard')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+            </div>
+            <div class="sub-options" id="sofa-card" style="display: none;">
+              <div class="sub-option" onclick="selectOption('sofa', 'TBC card')">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+              <div class="sub-option" onclick="selectOption('sofa', 'BoG card')">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
             </div>
           </div>
         </div>
@@ -226,8 +241,9 @@
           <div class="dropdown" id="dropdown-desk" style="display: none;">
             <h3>💳 გადახდის მეთოდები</h3>
             <div class="main-options">
-              <button class="main-option-btn" onclick="showSubOptions('desk', 'later')">გადახდა განაწილებით</button>
+              <button class="main-option-btn" onclick="showSubOptions('desk', 'later')">განაწილებით</button>
               <button class="main-option-btn" onclick="showSubOptions('desk', 'installment')">განვადება</button>
+              <button class="main-option-btn" onclick="showSubOptions('desk', 'card')">ბარათით გადახდა</button>
             </div>
             <div class="sub-options" id="desk-later" style="display: none;">
               <div class="sub-option" onclick="selectOption('desk', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
@@ -236,6 +252,10 @@
             <div class="sub-options" id="desk-installment" style="display: none;">
               <div class="sub-option" onclick="selectOption('desk', 'საქართველოს ბანკი')">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
               <div class="sub-option" onclick="initiateTBCInstallment('desk', 400, 'DESK_001', 'installment_standard')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+            </div>
+            <div class="sub-options" id="desk-card" style="display: none;">
+              <div class="sub-option" onclick="selectOption('desk', 'TBC card')">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+              <div class="sub-option" onclick="selectOption('desk', 'BoG card')">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
             </div>
           </div>
         </div>
@@ -318,6 +338,8 @@
         dd.style.display = "none";
         // Also hide all sub-options
         dd.querySelectorAll('.sub-options').forEach(sub => sub.style.display = "none");
+        // Remove active class from all buttons
+        dd.querySelectorAll('.main-option-btn').forEach(btn => btn.classList.remove('active'));
       });
       
       // Toggle current dropdown
@@ -329,8 +351,17 @@
 
     function showSubOptions(productId, optionType) {
       // Hide all sub-options for this product
-      const allSubOptions = document.querySelectorAll(`#${productId}-later, #${productId}-installment`);
+      const allSubOptions = document.querySelectorAll(`#${productId}-later, #${productId}-installment, #${productId}-card`);
       allSubOptions.forEach(sub => sub.style.display = "none");
+      
+      // Remove active class from all buttons in this product's dropdown
+      const dropdown = document.getElementById(`dropdown-${productId}`);
+      const allButtons = dropdown.querySelectorAll('.main-option-btn');
+      allButtons.forEach(btn => btn.classList.remove('active'));
+      
+      // Add active class to the clicked button
+      const clickedButton = event.target;
+      clickedButton.classList.add('active');
       
       // Show the selected sub-option
       const targetSubOption = document.getElementById(`${productId}-${optionType}`);
@@ -370,6 +401,10 @@
         'installment': {
           'საქართველოს ბანკი': '<img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG">',
           'თიბისი': '<img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC">'
+        },
+        'card': {
+          'TBC card': '<img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC">',
+          'BoG card': '<img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG">'
         }
       };
 
@@ -381,6 +416,10 @@
         card.style.visibility = 'visible';
 
         const productId = card.id;
+        
+        // Remove active class from all buttons
+        const allButtons = card.querySelectorAll('.main-option-btn');
+        allButtons.forEach(btn => btn.classList.remove('active'));
         
         // Update later payment options
         const laterOptions = card.querySelectorAll(`#${productId}-later .sub-option`);
@@ -401,6 +440,17 @@
             option.innerHTML = `საქართველოს ბანკი ${paymentOptions.installment['საქართველოს ბანკი']}`;
           } else if (text.includes('თიბისი')) {
             option.innerHTML = `თიბისი ${paymentOptions.installment['თიბისი']}`;
+          }
+        });
+
+        // Update card options
+        const cardOptions = card.querySelectorAll(`#${productId}-card .sub-option`);
+        cardOptions.forEach(option => {
+          const text = option.textContent.trim();
+          if (text.includes('TBC card')) {
+            option.innerHTML = `TBC card ${paymentOptions.card['TBC card']}`;
+          } else if (text.includes('BoG card')) {
+            option.innerHTML = `BoG card ${paymentOptions.card['BoG card']}`;
           }
         });
       });

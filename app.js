@@ -145,16 +145,21 @@ function renderProducts(productsToRender) {
             <div class="dropdown" id="dropdown-${product.id}" style="display: none;">
                 <h3>💳 გადახდის მეთოდები</h3>
                 <div class="main-options">
-                    <button class="main-option-btn" onclick="showSubOptions('${product.id}', 'later')">გადახდა განაწილებით</button>
+                    <button class="main-option-btn" onclick="showSubOptions('${product.id}', 'later')">განაწილებით</button>
                     <button class="main-option-btn" onclick="showSubOptions('${product.id}', 'installment')">განვადება</button>
+                    <button class="main-option-btn" onclick="showSubOptions('${product.id}', 'card')">ბარათით</button>
                 </div>
                 <div class="sub-options" id="${product.id}-later" style="display: none;">
-                    <div class="sub-option" onclick="selectOption('${product.id}', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ 🟠</div>
-                    <div class="sub-option" onclick="initiateTBCInstallment('${product.id}', ${product.price}, '${product.sku}', 'installment_split')">განაწილება 🔵</div>
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
+                    <div class="sub-option" onclick="initiateTBCInstallment('${product.id}', ${product.price}, '${product.sku}', 'installment_split')">განაწილება <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
                 </div>
                 <div class="sub-options" id="${product.id}-installment" style="display: none;">
-                    <div class="sub-option" onclick="selectOption('${product.id}', 'საქართველოს ბანკი')">საქართველოს ბანკი 🟠</div>
-                    <div class="sub-option" onclick="initiateTBCInstallment('${product.id}', ${product.price}, '${product.sku}', 'installment_standard')">თიბისი 🔵</div>
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'საქართველოს ბანკი')">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
+                    <div class="sub-option" onclick="initiateTBCInstallment('${product.id}', ${product.price}, '${product.sku}', 'installment_standard')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+                </div>
+                <div class="sub-options" id="${product.id}-card" style="display: none;">
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'TBC card')">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'BoG card')">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
                 </div>
             </div>
         </div>
