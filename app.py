@@ -150,5 +150,24 @@ def get_product_by_id(product_id):
     }
     return products.get(product_id)
 
+# @app.route('/check-env')
+# def check_env():
+#     """Check environment variables (for debugging)"""
+#     env_vars = {
+#         'FLITT_MERCHANT_ID': os.environ.get('FLITT_MERCHANT_ID', 'NOT SET'),
+#         'FLITT_SECRET_KEY': os.environ.get('FLITT_SECRET_KEY', 'NOT SET')[:10] + '...' if os.environ.get('FLITT_SECRET_KEY') else 'NOT SET',
+#         'FLITT_BASE_URL': os.environ.get('FLITT_BASE_URL', 'NOT SET'),
+#         'FLITT_TEST_MODE': os.environ.get('FLITT_TEST_MODE', 'NOT SET'),
+#     }
+#     return jsonify({
+#         'status': 'Environment check',
+#         'variables': env_vars,
+#         'config': {
+#             'merchant_id': FLITT_CONFIG['merchant_id'],
+#             'base_url': FLITT_CONFIG['base_url'],
+#             'test_mode': FLITT_CONFIG['test_mode']
+#         }
+#     })
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)
