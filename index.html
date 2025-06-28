@@ -91,175 +91,7 @@
     <div class="container">
       <h2 class="section-title">ავეჯი თქვენთვის</h2>
       <div class="product-grid">
-        <!-- Product cards -->
-        <div class="product-card" id="table">
-          <div class="product-info">
-            <div class="wishlist-icon">
-              <i class="far fa-heart"></i>
-            </div>
-            <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp" alt="კარადა" />
-            <h3>კარადა</h3>
-            <div class="product-meta">
-              <p class="price">₾250</p>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <span>(4.9)</span>
-              </div>
-            </div>
-            <button class="purchase-btn" onclick="toggleDropdown('table')">შეძენა</button>
-          </div>
-          <div class="dropdown" id="dropdown-table" style="display: none;">
-            <h3>💳 გადახდის მეთოდები</h3>
-            <div class="main-options">
-              <button class="main-option-btn" onclick="showSubOptions('table', 'later')">განაწილებით</button>
-              <button class="main-option-btn" onclick="showSubOptions('table', 'installment')">განვადება</button>
-              <button class="main-option-btn" onclick="showSubOptions('table', 'card')">ბარათით გადახდა</button>
-            </div>
-            <div class="sub-options" id="table-later" style="display: none;">
-              <div class="sub-option" onclick="selectOption('table', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-              <div class="sub-option" onclick="initiateTBCInstallment('table', 250, 'TABLE_001', 'installment_split')">განაწილება <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-            </div>
-            <div class="sub-options" id="table-installment" style="display: none;">
-              <div class="sub-option" onclick="selectOption('table', 'საქართველოს ბანკი')">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-              <div class="sub-option" onclick="initiateTBCInstallment('table', 250, 'TABLE_001', 'installment_standard')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-            </div>
-            <div class="sub-options" id="table-card" style="display: none;">
-              <div class="sub-option" onclick="selectOption('table', 'TBC card')">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-              <div class="sub-option" onclick="selectOption('table', 'BoG card')">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card" id="bed">
-          <div class="product-info">
-            <div class="wishlist-icon">
-              <i class="far fa-heart"></i>
-            </div>
-            <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp" alt="საწოლი" />
-            <h3>საწოლი</h3>
-            <div class="product-meta">
-              <p class="price">₾650</p>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <span>(5.0)</span>
-              </div>
-            </div>
-            <button class="purchase-btn" onclick="toggleDropdown('bed')">შეძენა</button>
-          </div>
-          <div class="dropdown" id="dropdown-bed" style="display: none;">
-            <h3>💳 გადახდის მეთოდები</h3>
-            <div class="main-options">
-              <button class="main-option-btn" onclick="showSubOptions('bed', 'later')">განაწილებით</button>
-              <button class="main-option-btn" onclick="showSubOptions('bed', 'installment')">განვადება</button>
-              <button class="main-option-btn" onclick="showSubOptions('bed', 'card')">ბარათით გადახდა</button>
-            </div>
-            <div class="sub-options" id="bed-later" style="display: none;">
-              <div class="sub-option" onclick="selectOption('bed', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-              <div class="sub-option" onclick="initiateTBCInstallment('bed', 650, 'BED_001', 'installment_split')">განაწილება <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-            </div>
-            <div class="sub-options" id="bed-installment" style="display: none;">
-              <div class="sub-option" onclick="selectOption('bed', 'საქართველოს ბანკი')">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-              <div class="sub-option" onclick="initiateTBCInstallment('bed', 650, 'BED_001', 'installment_standard')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-            </div>
-            <div class="sub-options" id="bed-card" style="display: none;">
-              <div class="sub-option" onclick="selectOption('bed', 'TBC card')">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-              <div class="sub-option" onclick="selectOption('bed', 'BoG card')">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card" id="sofa">
-          <div class="product-info">
-            <div class="wishlist-icon">
-              <i class="far fa-heart"></i>
-            </div>
-            <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp" alt="კუთხის დივანი" />
-            <h3>სამზარეულოს კუთხე</h3>
-            <div class="product-meta">
-              <p class="price">₾650</p>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <span>(5.0)</span>
-              </div>
-            </div>
-            <button class="purchase-btn" onclick="toggleDropdown('sofa')">შეძენა</button>
-          </div>
-          <div class="dropdown" id="dropdown-sofa" style="display: none;">
-            <h3>💳 გადახდის მეთოდები</h3>
-            <div class="main-options">
-              <button class="main-option-btn" onclick="showSubOptions('sofa', 'later')">განაწილებით</button>
-              <button class="main-option-btn" onclick="showSubOptions('sofa', 'installment')">განვადება</button>
-              <button class="main-option-btn" onclick="showSubOptions('sofa', 'card')">ბარათით გადახდა</button>
-            </div>
-            <div class="sub-options" id="sofa-later" style="display: none;">
-              <div class="sub-option" onclick="selectOption('sofa', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-              <div class="sub-option" onclick="initiateTBCInstallment('sofa', 650, 'SOFA_001', 'installment_split')">განაწილება <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-            </div>
-            <div class="sub-options" id="sofa-installment" style="display: none;">
-              <div class="sub-option" onclick="selectOption('sofa', 'საქართელოს ბანკი')">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-              <div class="sub-option" onclick="initiateTBCInstallment('sofa', 650, 'SOFA_001', 'installment_standard')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-            </div>
-            <div class="sub-options" id="sofa-card" style="display: none;">
-              <div class="sub-option" onclick="selectOption('sofa', 'TBC card')">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-              <div class="sub-option" onclick="selectOption('sofa', 'BoG card')">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card" id="desk">
-          <div class="product-info">
-            <div class="wishlist-icon">
-              <i class="far fa-heart"></i>
-            </div>
-            <img class="product-image" src="https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp" alt="სამუშაო მაგიდა" />
-            <h3>სამუშაო მაგიდა</h3>
-            <div class="product-meta">
-              <p class="price">₾400</p>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <span>(4.95)</span>
-              </div>
-            </div>
-            <button class="purchase-btn" onclick="toggleDropdown('desk')">შეძენა</button>
-          </div>
-          <div class="dropdown" id="dropdown-desk" style="display: none;">
-            <h3>💳 გადახდის მეთოდები</h3>
-            <div class="main-options">
-              <button class="main-option-btn" onclick="showSubOptions('desk', 'later')">განაწილებით</button>
-              <button class="main-option-btn" onclick="showSubOptions('desk', 'installment')">განვადება</button>
-              <button class="main-option-btn" onclick="showSubOptions('desk', 'card')">ბარათით გადახდა</button>
-            </div>
-            <div class="sub-options" id="desk-later" style="display: none;">
-              <div class="sub-option" onclick="selectOption('desk', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-              <div class="sub-option" onclick="initiateTBCInstallment('desk', 400, 'DESK_001', 'installment_split')">განაწილება <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-            </div>
-            <div class="sub-options" id="desk-installment" style="display: none;">
-              <div class="sub-option" onclick="selectOption('desk', 'საქართველოს ბანკი')">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-              <div class="sub-option" onclick="initiateTBCInstallment('desk', 400, 'DESK_001', 'installment_standard')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-            </div>
-            <div class="sub-options" id="desk-card" style="display: none;">
-              <div class="sub-option" onclick="selectOption('desk', 'TBC card')">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-              <div class="sub-option" onclick="selectOption('desk', 'BoG card')">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-            </div>
-          </div>
-        </div>
-
+        <!-- Product cards will be rendered by JavaScript -->
       </div>
     </div>
   </main>
@@ -271,7 +103,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="tbc_integration.js"></script>
   <script src="app.js"></script>
   <script>
     // Add this new function for smooth scrolling
@@ -289,19 +120,6 @@
       // Then scroll to products
       scrollToProducts();
     }
-
-    // TBC Integration initialization
-    fetch('/api/tbc-credentials')
-      .then(response => response.json())
-      .then(credentials => {
-        window.tbcInstallment = new TBCInstallment(
-          credentials.apiKey,
-          credentials.merchantId
-        );
-      })
-      .catch(error => {
-        console.error('Error loading TBC credentials:', error);
-      });
 
     // Payment status handling
     window.onload = function() {
@@ -473,6 +291,10 @@
       // Force a re-render of the products if needed
       if (typeof updateProductDisplay === 'function') {
         updateProductDisplay();
+      }
+      // Always re-render products
+      if (typeof renderProducts === 'function') {
+        renderProducts(window.products || []);
       }
     }
   </script>

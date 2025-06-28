@@ -4,7 +4,7 @@ let products = [
         id: 'table',
         name: 'კარადა',
         price: 250,
-        rating: 4.0,
+        rating: 4.9,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp',
         sku: 'TABLE_001'
     },
@@ -12,7 +12,7 @@ let products = [
         id: 'bed',
         name: 'საწოლი',
         price: 650,
-        rating: 4.5,
+        rating: 4.7,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp',
         sku: 'BED_001'
     },
@@ -28,7 +28,7 @@ let products = [
         id: 'desk',
         name: 'სამუშაო მაგიდა',
         price: 400,
-        rating: 4.0,
+        rating: 4.8,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp',
         sku: 'DESK_001'
     }
@@ -147,15 +147,15 @@ function renderProducts(productsToRender) {
                 <div class="main-options">
                     <button class="main-option-btn" onclick="showSubOptions('${product.id}', 'later')">განაწილებით</button>
                     <button class="main-option-btn" onclick="showSubOptions('${product.id}', 'installment')">განვადება</button>
-                    <button class="main-option-btn" onclick="showSubOptions('${product.id}', 'card')">ბარათით</button>
+                    <button class="main-option-btn" onclick="showSubOptions('${product.id}', 'card')">ბარათით გადახდა</button>
                 </div>
                 <div class="sub-options" id="${product.id}-later" style="display: none;">
                     <div class="sub-option" onclick="selectOption('${product.id}', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-                    <div class="sub-option" onclick="initiateTBCInstallment('${product.id}', ${product.price}, '${product.sku}', 'installment_split')">განაწილება <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'განაწილება')">განაწილება <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
                 </div>
                 <div class="sub-options" id="${product.id}-installment" style="display: none;">
                     <div class="sub-option" onclick="selectOption('${product.id}', 'საქართველოს ბანკი')">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-                    <div class="sub-option" onclick="initiateTBCInstallment('${product.id}', ${product.price}, '${product.sku}', 'installment_standard')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'თიბისი')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
                 </div>
                 <div class="sub-options" id="${product.id}-card" style="display: none;">
                     <div class="sub-option" onclick="selectOption('${product.id}', 'TBC card')">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
@@ -190,21 +190,11 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// TBC Integration
-function initiateTBCInstallment(productId, price, sku, installmentType) {
-    const productCard = document.getElementById(productId);
-    const productName = productCard.querySelector('h3').textContent;
-    
-    const productData = {
-        id: sku,
-        price: price,
-        name: productName,
-        installmentType: installmentType
-    };
-    
-    console.log('Product data:', productData); // Debug log
-    window.tbcInstallment.initiateInstallment(productData);
-    
-    // Prevent event bubbling
-    event.stopPropagation();
+// Render products on page load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    renderProducts(products);
+  });
+} else {
+  renderProducts(products);
 } 
