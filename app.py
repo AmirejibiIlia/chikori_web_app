@@ -1,7 +1,7 @@
 from flask import Flask, send_from_directory, request, jsonify, redirect, url_for
 import os
 import time
-from config import FLITT_CONFIG
+from config import FLITT_CONFIG, IS_PRODUCTION
 
 # Load environment variables
 from dotenv import load_dotenv
@@ -11,6 +11,14 @@ load_dotenv()
 from cloudipsp import Api, Checkout
 
 app = Flask(__name__, static_folder='.', static_url_path='')
+
+# Set Flask environment
+if IS_PRODUCTION:
+    app.config['ENV'] = 'production'
+    app.config['DEBUG'] = False
+else:
+    app.config['ENV'] = 'development'
+    app.config['DEBUG'] = True
 
 # Initialize Flitt API
 flitt_api = Api(
@@ -117,6 +125,31 @@ def payment_callback():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/check-env')
+def check_env():
+    """Check environment variables (for debugging) - Only available in development"""
+    if IS_PRODUCTION:
+        return jsonify({'error': 'Environment check not available in production'}), 403
+    
+    env_vars = {
+        'FLITT_MERCHANT_ID': os.environ.get('FLITT_MERCHANT_ID', 'NOT SET'),
+        'FLITT_SECRET_KEY': os.environ.get('FLITT_SECRET_KEY', 'NOT SET')[:10] + '...' if os.environ.get('FLITT_SECRET_KEY') else 'NOT SET',
+        'FLITT_BASE_URL': os.environ.get('FLITT_BASE_URL', 'NOT SET'),
+        'FLITT_TEST_MODE': os.environ.get('FLITT_TEST_MODE', 'NOT SET'),
+        'FLASK_ENV': os.environ.get('FLASK_ENV', 'NOT SET'),
+    }
+    return jsonify({
+        'status': 'Environment check',
+        'environment': 'PRODUCTION' if IS_PRODUCTION else 'DEVELOPMENT',
+        'variables': env_vars,
+        'config': {
+            'merchant_id': FLITT_CONFIG['merchant_id'],
+            'base_url': FLITT_CONFIG['base_url'],
+            'test_mode': FLITT_CONFIG['test_mode'],
+            'is_production': IS_PRODUCTION
+        }
+    })
+
 # Serve static files (css, js, images, etc.) - This should be LAST
 @app.route('/<path:path>')
 def static_proxy(path):
@@ -147,25 +180,6 @@ def get_product_by_id(product_id):
         }
     }
     return products.get(product_id)
-
-# @app.route('/check-env')
-# def check_env():
-#     """Check environment variables (for debugging)"""
-#     env_vars = {
-#         'FLITT_MERCHANT_ID': os.environ.get('FLITT_MERCHANT_ID', 'NOT SET'),
-#         'FLITT_SECRET_KEY': os.environ.get('FLITT_SECRET_KEY', 'NOT SET')[:10] + '...' if os.environ.get('FLITT_SECRET_KEY') else 'NOT SET',
-#         'FLITT_BASE_URL': os.environ.get('FLITT_BASE_URL', 'NOT SET'),
-#         'FLITT_TEST_MODE': os.environ.get('FLITT_TEST_MODE', 'NOT SET'),
-#     }
-#     return jsonify({
-#         'status': 'Environment check',
-#         'variables': env_vars,
-#         'config': {
-#             'merchant_id': FLITT_CONFIG['merchant_id'],
-#             'base_url': FLITT_CONFIG['base_url'],
-#             'test_mode': FLITT_CONFIG['test_mode']
-#         }
-#     })
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)

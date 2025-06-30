@@ -10,6 +10,69 @@ This is an online furniture store built with Flask and JavaScript, integrated wi
 - Responsive design
 - Payment status handling
 
+## 🌍 Environment Configuration
+
+This application supports both development and production environments. You can switch between them by modifying environment variables.
+
+### Quick Setup
+
+1. **Copy the environment template:**
+   ```bash
+   cp env.example .env
+   ```
+
+2. **Fill in your credentials in `.env`:**
+   ```env
+   # Development (testing)
+   FLITT_MERCHANT_ID=your_test_merchant_id
+   FLITT_SECRET_KEY=your_test_secret_key
+   FLITT_BASE_URL=http://localhost:8000
+   FLITT_TEST_MODE=true
+   
+   # Production (real payments)
+   FLITT_MERCHANT_ID=your_real_merchant_id
+   FLITT_SECRET_KEY=your_real_secret_key
+   FLITT_BASE_URL=https://www.ganvadeba.store
+   FLITT_TEST_MODE=false
+   ```
+
+### Environment Variables
+
+| Variable | Development | Production | Description |
+|----------|-------------|------------|-------------|
+| `FLITT_MERCHANT_ID` | Test ID | Real ID | Your Flitt merchant ID |
+| `FLITT_SECRET_KEY` | Test Key | Real Key | Your Flitt secret key |
+| `FLITT_BASE_URL` | `http://localhost:8000` | `https://www.ganvadeba.store` | Your website URL |
+| `FLITT_TEST_MODE` | `true` | `false` | Enable/disable test mode |
+| `FLASK_ENV` | `development` | `production` | Flask environment |
+| `FLASK_SECRET_KEY` | Any string | Secure random | Flask secret key |
+
+### Switching Environments
+
+#### For Local Development:
+```env
+FLITT_BASE_URL=http://localhost:8000
+FLITT_TEST_MODE=true
+FLASK_ENV=development
+```
+
+#### For Production (Render):
+Set these in Render Environment Variables:
+```env
+FLITT_BASE_URL=https://www.ganvadeba.store
+FLITT_TEST_MODE=false
+FLASK_ENV=production
+```
+
+### Environment Check
+
+Visit `/api/check-env` in development to verify your configuration:
+```bash
+curl http://localhost:8000/api/check-env
+```
+
+This endpoint is only available in development mode for security.
+
 ## Setup Instructions
 
 ### 1. Install Dependencies
