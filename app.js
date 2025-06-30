@@ -297,6 +297,21 @@ Check browser console for full error details.`;
     event.stopPropagation();
 }
 
+// On page load, check for ?search= in URL and filter products
+window.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const searchParam = params.get('search');
+    if (searchParam) {
+        if (searchInput) searchInput.value = searchParam;
+        const filteredProducts = products.filter(product => 
+            product.name.toLowerCase().includes(searchParam.toLowerCase())
+        );
+        renderProducts(filteredProducts);
+    } else {
+        renderProducts(products);
+    }
+});
+
 // Render products on page load
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function() {
