@@ -210,33 +210,72 @@ async function selectOption(productId, option) {
             button.textContent = 'იტვირთება...';
             button.style.pointerEvents = 'none';
             
+            // Prepare request data
+            const requestData = {
+                product_id: productId,
+                amount: product.price
+            };
+            
+            // Log full request details
+            console.log('=== TBC CARD PAYMENT REQUEST ===');
+            console.log('Request URL:', '/api/create-payment');
+            console.log('Request Method:', 'POST');
+            console.log('Request Headers:', {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            });
+            console.log('Request Body:', JSON.stringify(requestData, null, 2));
+            console.log('Product Details:', product);
+            
             // Create payment request
             const response = await fetch('/api/create-payment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    product_id: productId,
-                    amount: product.price
-                })
+                body: JSON.stringify(requestData)
             });
             
-            const result = await response.json();
+            // Log response details
+            console.log('=== TBC CARD PAYMENT RESPONSE ===');
+            console.log('Response Status:', response.status);
+            console.log('Response Status Text:', response.statusText);
+            console.log('Response Headers:', Object.fromEntries(response.headers.entries()));
             
+            const result = await response.json();
+            console.log('Response Body:', JSON.stringify(result, null, 2));
+            
+            // Show debug info in browser console and optionally in an alert
             if (result.success && result.checkout_url) {
-                // Redirect to Flitt payment page
+                // Redirect directly to Flitt payment page without showing success message
                 window.location.href = result.checkout_url;
             } else {
-                alert('გადახდის გახსნა ვერ მოხერხდა. გთხოვთ სცადოთ თავიდან.');
+                // Show error with debug info
+                const errorMessage = `❌ Payment request failed!
+
+Error: ${result.error || 'Unknown error'}
+Details: ${JSON.stringify(result.details || {}, null, 2)}
+
+Check browser console for full request/response details.`;
+                
+                alert(errorMessage);
                 // Reset button
                 button.textContent = originalText;
                 button.style.pointerEvents = 'auto';
             }
             
         } catch (error) {
-            console.error('Payment error:', error);
-            alert('გადახდის გახსნა ვერ მოხერხდა. გთხოვთ სცადოთ თავიდან.');
+            console.error('=== TBC CARD PAYMENT ERROR ===');
+            console.error('Error:', error);
+            console.error('Error Message:', error.message);
+            console.error('Error Stack:', error.stack);
+            
+            const errorMessage = `❌ Payment request failed!
+
+Network Error: ${error.message}
+Check browser console for full error details.`;
+            
+            alert(errorMessage);
             // Reset button
             const button = event.target;
             button.textContent = originalText;

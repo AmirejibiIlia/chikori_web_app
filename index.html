@@ -306,6 +306,34 @@
         renderProducts(window.products || []);
       }
     }
+
+    // Check if we're in development mode and show debug section
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      document.getElementById('debug-section').style.display = 'block';
+    }
+    
+    // Load debug information
+    async function loadDebugInfo() {
+      try {
+        const response = await fetch('/api/debug-tbc-payment');
+        const data = await response.json();
+        
+        const debugOutput = document.getElementById('debug-output');
+        debugOutput.innerHTML = `
+          <h4>Current Configuration:</h4>
+          <pre>${JSON.stringify(data.current_configuration, null, 2)}</pre>
+          
+          <h4>Sample Request:</h4>
+          <pre>${JSON.stringify(data.sample_request, null, 2)}</pre>
+          
+          <h4>Sample Flitt Request:</h4>
+          <pre>${JSON.stringify(data.sample_flitt_request, null, 2)}</pre>
+        `;
+      } catch (error) {
+        console.error('Error loading debug info:', error);
+        document.getElementById('debug-output').innerHTML = `<p>Error loading debug info: ${error.message}</p>`;
+      }
+    }
   </script>
 
 </body>
