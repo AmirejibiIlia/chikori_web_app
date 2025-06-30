@@ -127,11 +127,13 @@ function renderProducts(productsToRender) {
     const productGrid = document.querySelector('.product-grid');
     productGrid.innerHTML = productsToRender.map(product => `
         <div class="product-card" id="${product.id}">
+            <div class="product-image-wrapper">
+                <img class="product-image" src="${product.image}" alt="${product.name}" />
+            </div>
             <div class="product-info">
                 <div class="wishlist-icon">
                     <i class="far fa-heart"></i>
                 </div>
-                <img class="product-image" src="${product.image}" alt="${product.name}" />
                 <h3>${product.name}</h3>
                 <div class="product-meta">
                     <p class="price">₾${product.price}</p>
