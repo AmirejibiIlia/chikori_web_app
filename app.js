@@ -6,7 +6,8 @@ let products = [
         price: 250,
         rating: 4.9,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp',
-        sku: 'TABLE_001'
+        sku: 'TABLE_001',
+        description: 'კარადა დამზადებულია MDF- სგან, ზომები - შეკვეთით. 2 დღის ვადაში.'
     },
     {
         id: 'bed',
@@ -14,7 +15,8 @@ let products = [
         price: 650,
         rating: 4.7,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp',
-        sku: 'BED_001'
+        sku: 'BED_001',
+        description: 'საწოლი დამზადებულია რკინისგან, ზომები - შეკვეთით. 2 დღის ვადაში.'
     },
     {
         id: 'sofa',
@@ -22,7 +24,8 @@ let products = [
         price: 650,
         rating: 5.0,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp',
-        sku: 'SOFA_001'
+        sku: 'SOFA_001',
+        description: 'სამზარეულოს კუთხე დამზადებულია MDF- სგან, ზომები - შეკვეთით. 2 დღის ვადაში.'
     },
     {
         id: 'desk',
@@ -30,7 +33,8 @@ let products = [
         price: 400,
         rating: 4.8,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp',
-        sku: 'DESK_001'
+        sku: 'DESK_001',
+        description: 'სამუშაო მაგიდა დამზადებულია MDF- სგან, ზომები - შეკვეთით. 2 დღის ვადაში.'
     }
 ];
 
@@ -135,6 +139,7 @@ function renderProducts(productsToRender) {
                     <i class="far fa-heart"></i>
                 </div>
                 <h3>${product.name}</h3>
+                <div class="product-description">${product.description}</div>
                 <div class="product-meta">
                     <p class="price">₾${product.price}</p>
                     <div class="rating">
