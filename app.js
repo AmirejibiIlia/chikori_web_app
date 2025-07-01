@@ -7,7 +7,7 @@ let products = [
         rating: 4.9,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp',
         sku: 'TABLE_001',
-        description: 'კარადა დამზადებულია MDF- სგან, ზომები - შეკვეთით. 2 დღის ვადაში.'
+        description: '<strong>ძირითადი მახასიათებლები</strong><br><br><strong>ზომები:</strong> 100x182x52 - ასევე ვამზადებთ შეკვეთით<br><strong>მასალა:</strong> MDF<br><strong>ფერი:</strong> თეთრი<br><strong>დამზადების ვადა:</strong> 3 სამუშაო დღე<br><strong>მიწოდება:</strong> აწყობილ მდგომარეობაში<br><strong>მიტანის სერვისი</strong>'
     },
     {
         id: 'bed',
@@ -16,7 +16,7 @@ let products = [
         rating: 4.7,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp',
         sku: 'BED_001',
-        description: 'საწოლი დამზადებულია რკინისგან, ზომები - შეკვეთით. 2 დღის ვადაში.'
+        description: '<strong>ძირითადი მახასიათებლები</strong><br><br><strong>ზომები:</strong> Queen Size - ასევე ვამზადებთ შეკვეთით<br><strong>მასალა:</strong> მეტალი<br><strong>ფერი:</strong> შავი<br><strong>დამზადების ვადა:</strong> 3 სამუშაო დღე<br><strong>მიწოდება:</strong> აწყობილ მდგომარეობაში<br><strong>მიტანის სერვისი</strong>'
     },
     {
         id: 'sofa',
@@ -25,7 +25,7 @@ let products = [
         rating: 5.0,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp',
         sku: 'SOFA_001',
-        description: 'სამზარეულოს კუთხე დამზადებულია MDF- სგან, ზომები - შეკვეთით. 2 დღის ვადაში.'
+        description: '<strong>ძირითადი მახასიათებლები</strong><br><br><strong>ზომები:</strong> 124x164x83 - ასევე ვამზადებთ შეკვეთით<br><strong>მასალა:</strong> MDF/LMNT<br><strong>ფერი:</strong> ხისფერი (მონაცრისფრო)<br><strong>დამზადების ვადა:</strong> 2 სამუშაო დღე<br><strong>მიწოდება:</strong> აწყობილ მდგომარეობაში<br><strong>მიტანის სერვისი</strong>'
     },
     {
         id: 'desk',
@@ -34,7 +34,7 @@ let products = [
         rating: 4.8,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp',
         sku: 'DESK_001',
-        description: 'სამუშაო მაგიდა დამზადებულია MDF- სგან, ზომები - შეკვეთით. 2 დღის ვადაში.'
+        description: '<strong>ძირითადი მახასიათებლები</strong><br><br><strong>ზომები:</strong> 140x70x40 - ასევე ვამზადებთ შეკვეთით<br><strong>მასალა:</strong> MDF/LMNT<br><strong>ფერი:</strong> ხისფერი<br><strong>დამზადების ვადა:</strong> 3 სამუშაო დღე<br><strong>მიწოდება:</strong> აწყობილ მდგომარეობაში<br><strong>მიტანის სერვისი</strong>'
     }
 ];
 
