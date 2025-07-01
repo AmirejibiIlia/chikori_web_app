@@ -23,7 +23,7 @@ let products = [
         name: 'სამზარეულოს კუთხე',
         price: 650,
         rating: 5.0,
-        image: 'https://gorgia.ge/images/ab__webp/thumbnails/1100/900/detailed/5/ab071780-2-_1__jpg.webp',
+        image: 'https://zeelproject.com/uploads/posts/2021-02-15/1613392761_2.jpg',
         sku: 'SOFA_001',
         description: '<strong>ძირითადი მახასიათებლები</strong><br><br><strong>ზომები:</strong> 124x164x83 - ასევე ვამზადებთ შეკვეთით<br><strong>მასალა:</strong> MDF/LMNT<br><strong>ფერი:</strong> ხისფერი (მონაცრისფრო)<br><strong>დამზადების ვადა:</strong> 2 სამუშაო დღე<br><strong>მიწოდება:</strong> აწყობილ მდგომარეობაში<br><strong>მიტანის სერვისი</strong>'
     },
