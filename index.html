@@ -46,9 +46,9 @@
         <a href="#" class="cart-icon">
           <i class="fas fa-shopping-cart"></i>
         </a>
-        <button class="login-btn">
+        <button class="login-btn" id="loginBtn" onclick="handleLoginClick()">
           <i class="fas fa-user"></i>
-          <span>შესვლა</span>
+          <span id="loginText">შესვლა</span>
         </button>
       </div>
     </div>
@@ -143,7 +143,79 @@
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- Login/Register Modal -->
+  <div id="loginModal" class="modal-overlay" style="display:none;">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+      <h2>გთხოვთ, გაიარეთ ავტორიზაცია</h2>
+      <p>შეძენის გასაგრძელებლად საჭიროა შესვლა ან რეგისტრაცია.</p>
+      <div class="modal-actions">
+        <a href="/login" class="modal-btn">შესვლა</a>
+        <a href="/register" class="modal-btn secondary">რეგისტრაცია</a>
+      </div>
+    </div>
+  </div>
+
+  <style>
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  .modal-content {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    padding: 2.5rem 2rem 2rem 2rem;
+    max-width: 350px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+  }
+  .modal-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  .modal-content p {
+    color: var(--text-color);
+    margin-bottom: 2rem;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .modal-btn {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .modal-btn.secondary {
+    background: var(--secondary-color);
+  }
+  .modal-btn:hover {
+    background: var(--accent-color);
+  }
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #888;
+    cursor: pointer;
+  }
+  </style>
+
   <script src="app.js"></script>
   <script>
     // Add this new function for smooth scrolling
@@ -190,7 +262,36 @@
           closePaymentStatus();
         }, 8000);
       }
+      
+      // Check user login status on page load
+      checkUserStatus();
     };
+
+    // User authentication functions
+    async function checkUserStatus() {
+      try {
+        const response = await fetch('/api/user-status');
+        const data = await response.json();
+        
+        const loginBtn = document.getElementById('loginBtn');
+        const loginText = document.getElementById('loginText');
+        
+        if (data.logged_in) {
+          loginText.textContent = data.email;
+          loginBtn.onclick = () => window.location.href = '/logout';
+        } else {
+          loginText.textContent = 'შესვლა';
+          loginBtn.onclick = handleLoginClick;
+        }
+      } catch (error) {
+        console.error('Error checking user status:', error);
+      }
+    }
+
+    function handleLoginClick() {
+      // Redirect directly to login page
+      window.location.href = '/login';
+    }
 
     // Function to close payment status
     function closePaymentStatus() {
@@ -371,6 +472,13 @@
         console.error('Error loading debug info:', error);
         document.getElementById('debug-output').innerHTML = `<p>Error loading debug info: ${error.message}</p>`;
       }
+    }
+
+    function showLoginModal() {
+      document.getElementById('loginModal').style.display = 'flex';
+    }
+    function closeLoginModal() {
+      document.getElementById('loginModal').style.display = 'none';
     }
   </script>
 

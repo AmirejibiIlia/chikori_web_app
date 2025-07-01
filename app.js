@@ -319,4 +319,25 @@ if (document.readyState === 'loading') {
   });
 } else {
   renderProducts(products);
-} 
+}
+
+// Intercept purchase button clicks
+function interceptPurchaseButtons() {
+  const purchaseButtons = document.querySelectorAll('.buy-now, .purchase-btn');
+  purchaseButtons.forEach(btn => {
+    btn.addEventListener('click', async function(e) {
+      // Check login status
+      const res = await fetch('/api/user-status');
+      const data = await res.json();
+      if (!data.logged_in) {
+        e.preventDefault();
+        showLoginModal();
+        return false;
+      }
+      // else: allow normal flow
+    });
+  });
+}
+
+// Run on page load
+window.addEventListener('DOMContentLoaded', interceptPurchaseButtons); 

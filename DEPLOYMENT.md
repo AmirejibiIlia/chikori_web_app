@@ -157,4 +157,87 @@ After successful deployment:
 2. Monitor logs for errors
 3. Set up monitoring/alerting
 4. Document any custom configurations
-5. Create backup of environment variables 
+5. Create backup of environment variables
+
+## User Registration System
+
+### Data Persistence
+The user registration system uses file-based storage in the `data/` directory:
+- User data is stored in `data/users.json`
+- This directory is excluded from Git (see `.gitignore`)
+- Data persists between deployments on Render
+
+### Security Features
+- ✅ Passwords are hashed (SHA256)
+- ✅ Session-based authentication
+- ✅ Input validation
+- ✅ Duplicate email prevention
+
+### User Flow
+1. Users click "შესვლა" → Redirected to `/login`
+2. Can choose to login or register
+3. After successful login → Redirected to home page
+4. Login button shows user email when logged in
+
+## File Structure
+```
+Chikori_Web/
+├── app.py              # Main Flask application
+├── config.py           # Configuration settings
+├── requirements.txt    # Python dependencies
+├── gunicorn.conf.py    # Gunicorn configuration
+├── data/               # User data (created automatically)
+│   └── users.json      # User accounts (not in Git)
+├── index.html          # Main page
+├── style.css           # Styles
+├── app.js              # Frontend JavaScript
+└── .gitignore          # Git ignore rules
+```
+
+## Monitoring
+
+### Logs
+- View logs in Render Dashboard
+- Monitor for registration/login errors
+- Check payment processing logs
+
+### Health Checks
+- Main page: `https://your-app.onrender.com/`
+- User status: `https://your-app.onrender.com/api/user-status`
+- Login page: `https://your-app.onrender.com/login`
+- Register page: `https://your-app.onrender.com/register`
+
+## Troubleshooting
+
+### Common Issues
+1. **Users not saving**: Check if `data/` directory exists and is writable
+2. **Login failures**: Verify password hashing is working
+3. **Session issues**: Check `SECRET_KEY` is set correctly
+
+### Debug Endpoints (Development Only)
+- `/api/check-env` - Check environment variables
+- `/api/debug-tbc-payment` - Debug payment flow
+
+## Security Notes
+- Never commit `data/users.json` to Git
+- Keep `SECRET_KEY` secure and unique
+- Monitor for suspicious registration activity
+- Consider rate limiting for registration/login
+
+## Backup Strategy
+- User data is stored in `data/users.json`
+- Consider implementing database backup
+- Monitor Render's persistent storage limits
+
+## Updates
+When updating the application:
+1. Push changes to GitHub
+2. Render will auto-deploy
+3. User data persists in `data/` directory
+4. No manual intervention needed
+
+## Support
+For issues with:
+- **Render deployment**: Check Render documentation
+- **Payment processing**: Check Flitt API documentation
+- **User registration**: Check logs for specific errors 
