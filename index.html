@@ -238,22 +238,37 @@
     window.onload = function() {
       const urlParams = new URLSearchParams(window.location.search);
       const status = urlParams.get('status');
+      const paymentType = urlParams.get('payment_type');
       const statusDiv = document.getElementById('payment-status');
       const statusMessage = statusDiv.querySelector('.status-message');
 
       if (status) {
         statusDiv.style.display = 'block';
         if (status === 'success') {
-          statusMessage.innerHTML = `
-            <i class="fas fa-check-circle"></i>
-            <span>გილოცავთ! გადახდა წარმატებით დასრულდა!</span>
-          `;
+          if (paymentType === 'tbc_installment') {
+            statusMessage.innerHTML = `
+              <i class="fas fa-check-circle"></i>
+              <span>გილოცავთ! თიბისის განვადების განაცხადი წარმატებით გაიგზავნა!</span>
+            `;
+          } else {
+            statusMessage.innerHTML = `
+              <i class="fas fa-check-circle"></i>
+              <span>გილოცავთ! გადახდა წარმატებით დასრულდა!</span>
+            `;
+          }
           statusDiv.className = 'payment-status success';
         } else if (status === 'failure') {
-          statusMessage.innerHTML = `
-            <i class="fas fa-exclamation-triangle"></i>
-            <span>ბოდიში, გადახდა ვერ შესრულდა. გთხოვთ დაუკავშირდეთ: <strong>+995 555139900</strong></span>
-          `;
+          if (paymentType === 'tbc_installment') {
+            statusMessage.innerHTML = `
+              <i class="fas fa-exclamation-triangle"></i>
+              <span>ბოდიში, თიბისის განვადების განაცხადი ვერ შესრულდა. გთხოვთ დაუკავშირდეთ: <strong>+995 555139900</strong></span>
+            `;
+          } else {
+            statusMessage.innerHTML = `
+              <i class="fas fa-exclamation-triangle"></i>
+              <span>ბოდიში, გადახდა ვერ შესრულდა. გთხოვთ დაუკავშირდეთ: <strong>+995 555139900</strong></span>
+            `;
+          }
           statusDiv.className = 'payment-status error';
         }
         

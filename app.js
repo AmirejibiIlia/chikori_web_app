@@ -288,6 +288,92 @@ Check browser console for full error details.`;
             button.textContent = originalText;
             button.style.pointerEvents = 'auto';
         }
+    } 
+    // Handle TBC installment payment
+    else if (option === 'თიბისი') {
+        try {
+            // Show loading state
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'იტვირთება...';
+            button.style.pointerEvents = 'none';
+            
+            // Prepare request data
+            const requestData = {
+                product_id: productId,
+                amount: product.price
+            };
+            
+            // Log full request details
+            console.log('=== TBC INSTALLMENT REQUEST ===');
+            console.log('Request URL:', '/api/tbc-installment');
+            console.log('Request Method:', 'POST');
+            console.log('Request Headers:', {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            });
+            console.log('Request Body:', JSON.stringify(requestData, null, 2));
+            console.log('Product Details:', product);
+            
+            // Create installment application request
+            const response = await fetch('/api/tbc-installment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData)
+            });
+            
+            // Log response details
+            console.log('=== TBC INSTALLMENT RESPONSE ===');
+            console.log('Response Status:', response.status);
+            console.log('Response Status Text:', response.statusText);
+            console.log('Response Headers:', Object.fromEntries(response.headers.entries()));
+            
+            const result = await response.json();
+            console.log('Response Body:', JSON.stringify(result, null, 2));
+            
+            if (result.success && result.redirect_url) {
+                // Store session ID for potential cancel/confirm operations
+                if (result.session_id) {
+                    localStorage.setItem('tbc_session_id', result.session_id);
+                    localStorage.setItem('tbc_invoice_id', result.invoice_id);
+                }
+                
+                // Redirect to TBC installment application page
+                window.location.href = result.redirect_url;
+            } else {
+                // Show error with debug info
+                const errorMessage = `❌ TBC Installment request failed!
+
+Error: ${result.error || 'Unknown error'}
+Details: ${JSON.stringify(result.debug_info || {}, null, 2)}
+
+Check browser console for full request/response details.`;
+                
+                alert(errorMessage);
+                // Reset button
+                button.textContent = originalText;
+                button.style.pointerEvents = 'auto';
+            }
+            
+        } catch (error) {
+            console.error('=== TBC INSTALLMENT ERROR ===');
+            console.error('Error:', error);
+            console.error('Error Message:', error.message);
+            console.error('Error Stack:', error.stack);
+            
+            const errorMessage = `❌ TBC Installment request failed!
+
+Network Error: ${error.message}
+Check browser console for full error details.`;
+            
+            alert(errorMessage);
+            // Reset button
+            const button = event.target;
+            button.textContent = originalText;
+            button.style.pointerEvents = 'auto';
+        }
     } else {
         // For other payment options, show alert (placeholder)
         alert(`თქვენ აირჩიეთ: ${option}`);
