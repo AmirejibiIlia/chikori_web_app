@@ -3,7 +3,7 @@ let products = [
     {
         id: 'table',
         name: 'კარადა',
-        price: 10,
+        price: 51,
         rating: 4.9,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp',
         sku: 'TABLE_001',
@@ -12,7 +12,7 @@ let products = [
     {
         id: 'bed',
         name: 'საწოლი',
-        price: 10,
+        price: 51,
         rating: 4.7,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp',
         sku: 'BED_001',
@@ -21,7 +21,7 @@ let products = [
     {
         id: 'sofa',
         name: 'სამზარეულოს კუთხე',
-        price: 10,
+        price: 51,
         rating: 5.0,
         image: 'https://zeelproject.com/uploads/posts/2021-02-15/1613392761_2.jpg',
         sku: 'SOFA_001',
@@ -30,7 +30,7 @@ let products = [
     {
         id: 'desk',
         name: 'სამუშაო მაგიდა',
-        price: 10,
+        price: 51,
         rating: 4.8,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp',
         sku: 'DESK_001',

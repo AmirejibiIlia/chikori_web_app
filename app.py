@@ -1622,22 +1622,22 @@ def get_product_by_id(product_id):
         'table': {
             'id': 'table',
             'name': 'კარადა',
-            'price': 10
+            'price': 51
         },
         'bed': {
             'id': 'bed',
             'name': 'საწოლი',
-            'price': 10
+            'price': 51
         },
         'sofa': {
             'id': 'sofa',
             'name': 'სამზარეულოს კუთხე',
-            'price': 10
+            'price': 51
         },
         'desk': {
             'id': 'desk',
             'name': 'სამუშაო მაგიდა',
-            'price': 10
+            'price': 51
         }
     }
     return products.get(product_id)
