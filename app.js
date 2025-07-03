@@ -3,7 +3,7 @@ let products = [
     {
         id: 'table',
         name: 'კარადა',
-        price: 250,
+        price: 10,
         rating: 4.9,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp',
         sku: 'TABLE_001',
@@ -12,7 +12,7 @@ let products = [
     {
         id: 'bed',
         name: 'საწოლი',
-        price: 650,
+        price: 10,
         rating: 4.7,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp',
         sku: 'BED_001',
@@ -21,7 +21,7 @@ let products = [
     {
         id: 'sofa',
         name: 'სამზარეულოს კუთხე',
-        price: 650,
+        price: 10,
         rating: 5.0,
         image: 'https://zeelproject.com/uploads/posts/2021-02-15/1613392761_2.jpg',
         sku: 'SOFA_001',
@@ -30,7 +30,7 @@ let products = [
     {
         id: 'desk',
         name: 'სამუშაო მაგიდა',
-        price: 400,
+        price: 10,
         rating: 4.8,
         image: 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp',
         sku: 'DESK_001',
@@ -157,16 +157,16 @@ function renderProducts(productsToRender) {
                     <button class="main-option-btn" onclick="showSubOptions('${product.id}', 'card')">ბარათით გადახდა</button>
                 </div>
                 <div class="sub-options" id="${product.id}-later" style="display: none;">
-                    <div class="sub-option" onclick="selectOption('${product.id}', 'ნაწილ-ნაწილ')">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-                    <div class="sub-option" onclick="selectOption('${product.id}', 'განაწილება')">განაწილება <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'ნაწილ-ნაწილ', event)">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'განაწილება', event)">განაწილება <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
                 </div>
                 <div class="sub-options" id="${product.id}-installment" style="display: none;">
-                    <div class="sub-option" onclick="selectOption('${product.id}', 'საქართველოს ბანკი')">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-                    <div class="sub-option" onclick="selectOption('${product.id}', 'თიბისი')">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'საქართველოს ბანკი', event)">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'თიბისი', event)">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
                 </div>
                 <div class="sub-options" id="${product.id}-card" style="display: none;">
-                    <div class="sub-option" onclick="selectOption('${product.id}', 'TBC card')">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-                    <div class="sub-option" onclick="selectOption('${product.id}', 'BoG card')">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'TBC card', event)">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+                    <div class="sub-option" onclick="selectOption('${product.id}', 'BoG card', event)">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
                 </div>
             </div>
         </div>
@@ -198,7 +198,7 @@ document.addEventListener('click', function(e) {
 });
 
 // Payment processing function
-async function selectOption(productId, option) {
+async function selectOption(productId, option, event) {
     console.log(`Selected ${option} for ${productId}`);
     
     // Find the product
@@ -210,13 +210,13 @@ async function selectOption(productId, option) {
     
     // Handle TBC card payment
     if (option === 'TBC card') {
+        let button = event ? event.target : null;
+        let originalText = button ? button.textContent : '';
         try {
-            // Show loading state
-            const button = event.target;
-            const originalText = button.textContent;
-            button.textContent = 'იტვირთება...';
-            button.style.pointerEvents = 'none';
-            
+            if (button) {
+                button.textContent = 'იტვირთება...';
+                button.style.pointerEvents = 'none';
+            }
             // Prepare request data
             const requestData = {
                 product_id: productId,
@@ -267,8 +267,10 @@ Check browser console for full request/response details.`;
                 
                 alert(errorMessage);
                 // Reset button
-                button.textContent = originalText;
-                button.style.pointerEvents = 'auto';
+                if (button) {
+                    button.textContent = originalText;
+                    button.style.pointerEvents = 'auto';
+                }
             }
             
         } catch (error) {
@@ -284,20 +286,21 @@ Check browser console for full error details.`;
             
             alert(errorMessage);
             // Reset button
-            const button = event.target;
-            button.textContent = originalText;
-            button.style.pointerEvents = 'auto';
+            if (button) {
+                button.textContent = originalText;
+                button.style.pointerEvents = 'auto';
+            }
         }
     } 
     // Handle TBC installment payment
     else if (option === 'თიბისი') {
+        let button = event ? event.target : null;
+        let originalText = button ? button.textContent : '';
         try {
-            // Show loading state
-            const button = event.target;
-            const originalText = button.textContent;
-            button.textContent = 'იტვირთება...';
-            button.style.pointerEvents = 'none';
-            
+            if (button) {
+                button.textContent = 'იტვირთება...';
+                button.style.pointerEvents = 'none';
+            }
             // Prepare request data
             const requestData = {
                 product_id: productId,
@@ -353,8 +356,10 @@ Check browser console for full request/response details.`;
                 
                 alert(errorMessage);
                 // Reset button
-                button.textContent = originalText;
-                button.style.pointerEvents = 'auto';
+                if (button) {
+                    button.textContent = originalText;
+                    button.style.pointerEvents = 'auto';
+                }
             }
             
         } catch (error) {
@@ -370,7 +375,97 @@ Check browser console for full error details.`;
             
             alert(errorMessage);
             // Reset button
-            const button = event.target;
+            if (button) {
+                button.textContent = originalText;
+                button.style.pointerEvents = 'auto';
+            }
+        }
+    }
+    // Handle TBC E-Commerce installment payment (განაწილება)
+    else if (option === 'განაწილება') {
+        let button = event ? event.target : null;
+        let originalText = button ? button.textContent : '';
+        try {
+            if (button) {
+                button.textContent = 'იტვირთება...';
+                button.style.pointerEvents = 'none';
+            }
+            // Prepare request data
+            const requestData = {
+                product_id: productId,
+                amount: product.price
+            };
+            
+            // Log full request details
+            console.log('=== TBC E-COMMERCE PAYMENT REQUEST ===');
+            console.log('Request URL:', '/api/tbc-ecommerce-payment');
+            console.log('Request Method:', 'POST');
+            console.log('Request Headers:', {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            });
+            console.log('Request Body:', JSON.stringify(requestData, null, 2));
+            console.log('Product Details:', product);
+            
+            // Create E-Commerce payment request
+            const response = await fetch('/api/tbc-ecommerce-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData)
+            });
+            
+            // Log response details
+            console.log('=== TBC E-COMMERCE PAYMENT RESPONSE ===');
+            console.log('Response Status:', response.status);
+            console.log('Response Status Text:', response.statusText);
+            console.log('Response Headers:', Object.fromEntries(response.headers.entries()));
+            
+            const result = await response.json();
+            console.log('Response Body:', JSON.stringify(result, null, 2));
+            
+            if (result.success && result.approval_url) {
+                // Store payment ID for potential operations
+                if (result.pay_id) {
+                    localStorage.setItem('tbc_ecommerce_pay_id', result.pay_id);
+                    localStorage.setItem('tbc_ecommerce_merchant_payment_id', result.merchant_payment_id);
+                }
+                
+                // Redirect to TBC E-Commerce payment page
+                window.location.href = result.approval_url;
+            } else {
+                // Show user-friendly error message
+                let errorMessage = '❌ TBC E-Commerce payment request failed!\n\n';
+                
+                if (result.error && result.error.includes('access token')) {
+                    errorMessage += 'TBC E-Commerce credentials are not configured or invalid.\n\n';
+                    errorMessage += 'This feature requires proper TBC E-Commerce API credentials.\n';
+                    errorMessage += 'Please contact support for assistance.';
+                } else {
+                    errorMessage += `Error: ${result.error || 'Unknown error'}\n\n`;
+                    errorMessage += 'Check browser console for full details.';
+                }
+                
+                alert(errorMessage);
+                // Reset button
+                button.textContent = originalText;
+                button.style.pointerEvents = 'auto';
+            }
+            
+        } catch (error) {
+            console.error('=== TBC E-COMMERCE PAYMENT ERROR ===');
+            console.error('Error:', error);
+            console.error('Error Message:', error.message);
+            console.error('Error Stack:', error.stack);
+            
+            const errorMessage = `❌ TBC E-Commerce payment request failed!
+
+Network Error: ${error.message}
+Check browser console for full error details.`;
+            
+            alert(errorMessage);
+            // Reset button
             button.textContent = originalText;
             button.style.pointerEvents = 'auto';
         }
@@ -380,7 +475,9 @@ Check browser console for full error details.`;
     }
     
     // Prevent event bubbling
-    event.stopPropagation();
+    if (event) {
+        event.stopPropagation();
+    }
 }
 
 // On page load, check for ?search= in URL and filter products
