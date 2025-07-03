@@ -504,20 +504,12 @@ if (document.readyState === 'loading') {
   renderProducts(products);
 }
 
-// Intercept purchase button clicks
+// Intercept purchase button clicks - no restrictions
 function interceptPurchaseButtons() {
   const purchaseButtons = document.querySelectorAll('.buy-now, .purchase-btn');
   purchaseButtons.forEach(btn => {
-    btn.addEventListener('click', async function(e) {
-      // Check login status
-      const res = await fetch('/api/user-status');
-      const data = await res.json();
-      if (!data.logged_in) {
-        e.preventDefault();
-        showLoginModal();
-        return false;
-      }
-      // else: allow normal flow
+    btn.addEventListener('click', function(e) {
+      // Allow normal flow - no restrictions
     });
   });
 }

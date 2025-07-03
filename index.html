@@ -143,18 +143,7 @@
     </div>
   </div>
 
-  <!-- Login/Register Modal -->
-  <div id="loginModal" class="modal-overlay" style="display:none;">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeLoginModal()">&times;</button>
-      <h2>გთხოვთ, გაიარეთ ავტორიზაცია</h2>
-      <p>შეძენის გასაგრძელებლად საჭიროა შესვლა ან რეგისტრაცია.</p>
-      <div class="modal-actions">
-        <a href="/login" class="modal-btn">შესვლა</a>
-        <a href="/register" class="modal-btn secondary">რეგისტრაცია</a>
-      </div>
-    </div>
-  </div>
+
 
   <style>
   .modal-overlay {
@@ -288,11 +277,11 @@
         }, 8000);
       }
       
-      // Check user login status on page load
+      // Check user login status on page load (for header)
       checkUserStatus();
     };
 
-    // User authentication functions
+    // User authentication functions (kept for header login button)
     async function checkUserStatus() {
       try {
         const response = await fetch('/api/user-status');
@@ -499,12 +488,8 @@
       }
     }
 
-    function showLoginModal() {
-      document.getElementById('loginModal').style.display = 'flex';
-    }
-    function closeLoginModal() {
-      document.getElementById('loginModal').style.display = 'none';
-    }
+
+
   </script>
 
 </body>
