@@ -16,7 +16,7 @@ PRODUCTS = {
     'table': {
         'id': 'table',
         'name': 'კარადა',
-        'price': 51.00,
+        'price': 11.00,
         'currency': 'GEL',
         'category': 'furniture',
         'rating': 4.9,
@@ -34,7 +34,7 @@ PRODUCTS = {
     'bed': {
         'id': 'bed',
         'name': 'საწოლი',
-        'price': 51.00,
+        'price': 21.00,
         'currency': 'GEL',
         'category': 'furniture',
         'rating': 4.7,
@@ -52,7 +52,7 @@ PRODUCTS = {
     'sofa': {
         'id': 'sofa',
         'name': 'სამზარეულოს კუთხე',
-        'price': 51.00,
+        'price': 31.00,
         'currency': 'GEL',
         'category': 'furniture',
         'rating': 5.0,
@@ -70,7 +70,7 @@ PRODUCTS = {
     'desk': {
         'id': 'desk',
         'name': 'სამუშაო მაგიდა',
-        'price': 51.00,
+        'price': 41.00,
         'currency': 'GEL',
         'category': 'furniture',
         'rating': 4.8,
