@@ -16,7 +16,7 @@ PRODUCTS = {
     'table': {
         'id': 'table',
         'name': 'კარადა',
-        'price': 11.00,
+        'price': 0.05,
         'currency': 'GEL',
         'category': 'furniture',
         'rating': 4.9,
