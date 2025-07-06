@@ -91,5 +91,4 @@ print(f"🏪 Merchant ID: {FLITT_CONFIG['merchant_id']}")
 print(f"🏦 TBC Test Mode: {TBC_CONFIG['test_mode']}")
 print(f"🏦 TBC Campaign ID: {TBC_CONFIG['campaign_id']}")
 print(f"🏦 TBC E-Commerce Test Mode: {TBC_ECOMMERCE_CONFIG['test_mode']}")
-print(f"🏦 TBC E-Commerce API Key: {TBC_ECOMMERCE_CONFIG['api_key'][:10]}...")
-
+print(f"🏦 TBC E-Commerce API Key: {TBC_ECOMMERCE_CONFIG['api_key'][:10]}...") 

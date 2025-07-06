@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ვინინგი - ავეჯი</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/static/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head> 
 <body>
@@ -70,11 +70,9 @@
     <div class="container">
       <div class="filters">
         <div class="filter-group">
-          <select class="filter-select">
+          <select class="filter-select" id="price-filter">
             <option value="">ფასი</option>
-            <option value="0-50">0₾ - 50₾</option>
-            <option value="50-100">50₾ - 100₾</option>
-            <option value="100+">100₾ +</option>
+            <!-- Price ranges will be loaded dynamically -->
           </select>
         </div>
         <div class="sort-group">
@@ -205,7 +203,7 @@
   }
   </style>
 
-  <script src="app.js"></script>
+  <script src="/static/js/app_dynamic.js"></script>
   <script>
     // Add this new function for smooth scrolling
     function scrollToProducts() {
