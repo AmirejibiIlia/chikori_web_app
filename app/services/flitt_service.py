@@ -30,8 +30,7 @@ def create_flitt_payment(product_id, amount):
             'order_id': order_id,
             'currency': FLITT_CONFIG['currency'],
             'order_desc': f"შეძენა: {product['name']}",
-            'amount': order_amount,
-            'server_callback_url': FLITT_CONFIG['base_url'] + '/payment-callback'
+            'amount': order_amount
         }
         
         # Generate signature

@@ -64,15 +64,7 @@ def init_payment_routes(app):
             }
             return jsonify(error_response), 500
 
-    @app.route('/payment-result', methods=['GET', 'POST'])
-    def payment_result():
-        status = request.args.get('status') or request.args.get('response_status') or request.form.get('response_status')
-        payment_type = request.args.get('payment_type', 'flitt')
-        
-        if status == 'success':
-            return redirect(url_for('home', status='success', payment_type=payment_type))
-        else:
-            return redirect(url_for('home', status='failure', payment_type=payment_type))
+
 
     @app.route('/payment-callback', methods=['POST'])
     def payment_callback():

@@ -9,12 +9,7 @@
 </head> 
 <body>
 
-  <div id="payment-status" class="payment-status" style="display: none;">
-    <div class="status-message"></div>
-    <button class="status-close" onclick="closePaymentStatus()">
-      <i class="fas fa-times"></i>
-    </button>
-  </div>
+
 
   <!-- Top Banner -->
   <div class="top-banner">
@@ -221,60 +216,8 @@
       scrollToProducts();
     }
 
-    // Payment status handling
+    // Page load handling
     window.onload = function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const status = urlParams.get('status');
-      const paymentType = urlParams.get('payment_type');
-      const statusDiv = document.getElementById('payment-status');
-      const statusMessage = statusDiv.querySelector('.status-message');
-
-      if (status) {
-        statusDiv.style.display = 'block';
-        if (status === 'success') {
-          if (paymentType === 'tbc_installment') {
-            statusMessage.innerHTML = `
-              <i class="fas fa-check-circle"></i>
-              <span>გილოცავთ! თიბისის განვადების განაცხადი წარმატებით გაიგზავნა!</span>
-            `;
-          } else if (paymentType === 'tbc_ecommerce') {
-            statusMessage.innerHTML = `
-              <i class="fas fa-check-circle"></i>
-              <span>გილოცავთ! თიბისის განაწილების გადახდა წარმატებით დასრულდა!</span>
-            `;
-          } else {
-            statusMessage.innerHTML = `
-              <i class="fas fa-check-circle"></i>
-              <span>გილოცავთ! გადახდა წარმატებით დასრულდა!</span>
-            `;
-          }
-          statusDiv.className = 'payment-status success';
-        } else if (status === 'failure') {
-          if (paymentType === 'tbc_installment') {
-            statusMessage.innerHTML = `
-              <i class="fas fa-exclamation-triangle"></i>
-              <span>ბოდიში, თიბისის განვადების განაცხადი ვერ შესრულდა. გთხოვთ დაუკავშირდეთ: <strong>+995 555139900</strong></span>
-            `;
-          } else if (paymentType === 'tbc_ecommerce') {
-            statusMessage.innerHTML = `
-              <i class="fas fa-exclamation-triangle"></i>
-              <span>ბოდიში, თიბისის განაწილების გადახდა ვერ შესრულდა. გთხოვთ დაუკავშირდეთ: <strong>+995 555139900</strong></span>
-            `;
-          } else {
-            statusMessage.innerHTML = `
-              <i class="fas fa-exclamation-triangle"></i>
-              <span>ბოდიში, გადახდა ვერ შესრულდა. გთხოვთ დაუკავშირდეთ: <strong>+995 555139900</strong></span>
-            `;
-          }
-          statusDiv.className = 'payment-status error';
-        }
-        
-        // Auto-hide after 8 seconds for better user experience
-        setTimeout(() => {
-          closePaymentStatus();
-        }, 8000);
-      }
-      
       // Check user login status on page load (for header)
       checkUserStatus();
     };
@@ -305,13 +248,7 @@
       window.location.href = '/login';
     }
 
-    // Function to close payment status
-    function closePaymentStatus() {
-      const statusDiv = document.getElementById('payment-status');
-      statusDiv.style.display = 'none';
-      // Clean up URL parameters
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
+
 
     // Dropdown functionality
     function toggleDropdown(id) {

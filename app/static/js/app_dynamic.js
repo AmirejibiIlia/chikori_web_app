@@ -373,15 +373,15 @@ async function selectOption(productId, optionKey, event) {
                 window.location.href = redirectUrl;
             } else {
                 console.log('Payment successful but no redirect URL provided');
-                alert('გადახდა წარმატებით დასრულდა');
+                // No alert - silent success
             }
         } else {
             console.error('Payment failed:', result.error || 'Unknown error');
-            alert('გადახდა ვერ მოხერხდა: ' + (result.error || 'უცნობი შეცდომა'));
+            // No alert - silent failure
         }
     } catch (error) {
         console.error('Payment request failed:', error);
-        alert('გადახდის მოთხოვნა ვერ მოხერხდა: ' + error.message);
+        // No alert - silent failure
     } finally {
         if (button) {
             button.textContent = originalText;

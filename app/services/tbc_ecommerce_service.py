@@ -84,7 +84,6 @@ def create_tbc_ecommerce_payment(product_id, amount, user_ip_address=None):
                 "tax": 0,
                 "shipping": 0
             },
-            "returnurl": TBC_ECOMMERCE_CONFIG['return_url'],
             "extra": merchant_payment_id,
             "userIpAddress": user_ip_address or '127.0.0.1',
             "expirationMinutes": "12",
@@ -96,7 +95,6 @@ def create_tbc_ecommerce_payment(product_id, amount, user_ip_address=None):
                     "Quantity": 1
                 }
             ],
-            "callbackUrl": TBC_ECOMMERCE_CONFIG['callback_url'],
             "preAuth": False,
             "language": "KA",
             "merchantPaymentId": merchant_payment_id,

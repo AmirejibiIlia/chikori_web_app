@@ -38,7 +38,6 @@ TBC_ECOMMERCE_CONFIG = {
     'oauth_url': '/v1/tpay/access-token',
     'payment_url': '/v1/tpay/payments',
     'callback_url': os.environ.get('TBC_ECOMMERCE_CALLBACK_URL', 'https://ganvadeba.store/tbc-ecommerce-callback'),
-    'return_url': os.environ.get('TBC_ECOMMERCE_RETURN_URL', 'https://ganvadeba.store/payment-result'),
     'merchant_id': os.environ.get('TBC_ECOMMERCE_MERCHANT_ID', 'YOUR_TBC_ECOMMERCE_MERCHANT_ID_HERE'),
     'client_id': os.environ.get('TBC_ECOMMERCE_CLIENT_ID', 'YOUR_TBC_ECOMMERCE_CLIENT_ID_HERE'),
     'client_secret': os.environ.get('TBC_ECOMMERCE_CLIENT_SECRET', 'YOUR_TBC_ECOMMERCE_CLIENT_SECRET_HERE')
@@ -77,7 +76,7 @@ FLASK_SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', 'devsecret')
 # - TBC_ECOMMERCE_CLIENT_SECRET=your_real_tbc_ecommerce_client_secret
 # - TBC_ECOMMERCE_TEST_MODE=false
 # - TBC_ECOMMERCE_CALLBACK_URL=https://ganvadeba.store/tbc-ecommerce-callback
-# - TBC_ECOMMERCE_RETURN_URL=https://ganvadeba.store/payment-result
+
 # - FLASK_ENV=production
 # - FLASK_SECRET_KEY=your_secure_production_secret
 
