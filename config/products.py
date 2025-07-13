@@ -15,12 +15,12 @@ PRODUCT_CATEGORIES = {
 PRODUCTS = {
     'table': {
         'id': 'table',
-        'name': 'კარადა',
-        'price': 0.05,
+        'name': 'სამზარეულოს კუთხე',
+        'price': 620,
         'currency': 'GEL',
         'category': 'furniture',
-        'rating': 4.9,
-        'image': 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/53/BM-00146724_-_Closet_jpg.webp',
+        'rating': 4.98,
+        'image': 'https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/kutxe.png',
         'sku': 'TABLE_001',
         'description': '<strong>ძირითადი მახასიათებლები</strong><br><br><strong>ზომები:</strong> 100x182x52 - ასევე ვამზადებთ შეკვეთით<br><strong>მასალა:</strong> MDF<br><strong>ფერი:</strong> თეთრი<br><strong>დამზადების ვადა:</strong> 3 სამუშაო დღე<br><strong>მიწოდება:</strong> აწყობილ მდგომარეობაში<br><strong>მიტანის სერვისი</strong>',
         'features': ['MDF მასალა', 'თეთრი ფერი', '3 დღე დამზადება'],
@@ -33,12 +33,12 @@ PRODUCTS = {
     },
     'bed': {
         'id': 'bed',
-        'name': 'საწოლი',
-        'price': 21.00,
+        'name': 'ტრანსფორმერი მაგიდა',
+        'price': 260,
         'currency': 'GEL',
         'category': 'furniture',
-        'rating': 4.7,
-        'image': 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/64/BM-00201015-_1__jpg.webp',
+        'rating': 5.00,
+        'image': 'https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/transformeri.png',
         'sku': 'BED_001',
         'description': '<strong>ძირითადი მახასიათებლები</strong><br><br><strong>ზომები:</strong> Queen Size - ასევე ვამზადებთ შეკვეთით<br><strong>მასალა:</strong> მეტალი<br><strong>ფერი:</strong> შავი<br><strong>დამზადების ვადა:</strong> 3 სამუშაო დღე<br><strong>მიწოდება:</strong> აწყობილ მდგომარეობაში<br><strong>მიტანის სერვისი</strong>',
         'features': ['მეტალის კონსტრუქცია', 'შავი ფერი', '3 დღე დამზადება'],
@@ -65,7 +65,7 @@ PRODUCTS = {
         'color': 'ხისფერი (მონაცრისფრო)',
         'production_time': '2 სამუშაო დღე',
         'delivery': 'აწყობილ მდგომარეობაში',
-        'active': True
+        'active': False
     },
     'desk': {
         'id': 'desk',
@@ -83,7 +83,7 @@ PRODUCTS = {
         'color': 'ხისფერი',
         'production_time': '3 სამუშაო დღე',
         'delivery': 'აწყობილ მდგომარეობაში',
-        'active': True
+        'active': False
     }
 }
 
