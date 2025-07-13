@@ -219,16 +219,16 @@ function generateSubOptions(productId) {
     if (!paymentMethods || Object.keys(paymentMethods).length === 0) {
         return `
             <div class="sub-options" id="${productId}-later" style="display: none;">
-                <div class="sub-option" onclick="selectOption('${productId}', 'bog_later', event)">ნაწილ-ნაწილ <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-                <div class="sub-option" onclick="selectOption('${productId}', 'tbc_later', event)">განაწილება <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+                <div class="sub-option" onclick="selectOption('${productId}', 'bog_later', event)">ნაწილ-ნაწილ <img src="https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/bog.png" class="bank-icon" alt="BOG"></div>
+                <div class="sub-option" onclick="selectOption('${productId}', 'tbc_later', event)">განაწილება <img src="https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/tbc.png" class="bank-icon" alt="TBC"></div>
             </div>
             <div class="sub-options" id="${productId}-installment" style="display: none;">
-                <div class="sub-option" onclick="selectOption('${productId}', 'bog_installment', event)">საქართველოს ბანკი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
-                <div class="sub-option" onclick="selectOption('${productId}', 'tbc_installment', event)">თიბისი <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
+                <div class="sub-option" onclick="selectOption('${productId}', 'bog_installment', event)">საქართველოს ბანკი <img src="https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/bog.png" class="bank-icon" alt="BOG"></div>
+                <div class="sub-option" onclick="selectOption('${productId}', 'tbc_installment', event)">თიბისი <img src="https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/tbc.png" class="bank-icon" alt="TBC"></div>
             </div>
             <div class="sub-options" id="${productId}-card" style="display: none;">
-                <div class="sub-option" onclick="selectOption('${productId}', 'tbc_card', event)">TBC card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png" class="bank-icon" alt="TBC"></div>
-                <div class="sub-option" onclick="selectOption('${productId}', 'bog_card', event)">BoG card <img src="https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png" class="bank-icon" alt="BOG"></div>
+                <div class="sub-option" onclick="selectOption('${productId}', 'tbc_card', event)">TBC card <img src="https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/tbc.png" class="bank-icon" alt="TBC"></div>
+                <div class="sub-option" onclick="selectOption('${productId}', 'bog_card', event)">BoG card <img src="https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/bog.png" class="bank-icon" alt="BOG"></div>
             </div>
         `;
     }

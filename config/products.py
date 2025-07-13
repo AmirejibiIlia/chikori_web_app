@@ -128,13 +128,13 @@ PAYMENT_METHODS = {
             'bog_later': {
                 'name': 'ნაწილ-ნაწილ',
                 'bank': 'BOG',
-                'icon': 'https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png',
+                'icon': 'https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/bog.png',
                 'service': None  # Not implemented yet
             },
             'tbc_later': {
                 'name': 'განაწილება',
                 'bank': 'TBC',
-                'icon': 'https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png',
+                'icon': 'https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/tbc.png',
                 'service': 'tbc_ecommerce'
             }
         }
@@ -145,13 +145,13 @@ PAYMENT_METHODS = {
             'bog_installment': {
                 'name': 'საქართველოს ბანკი',
                 'bank': 'BOG',
-                'icon': 'https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png',
+                'icon': 'https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/bog.png',
                 'service': None  # Not implemented yet
             },
             'tbc_installment': {
                 'name': 'თიბისი',
                 'bank': 'TBC',
-                'icon': 'https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png',
+                'icon': 'https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/tbc.png',
                 'service': 'tbc_installment'
             }
         }
@@ -162,13 +162,13 @@ PAYMENT_METHODS = {
             'tbc_card': {
                 'name': 'TBC card',
                 'bank': 'TBC',
-                'icon': 'https://extra.ge/assets/atomic-assets/img/svg-icons/tbc.png',
+                'icon': 'https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/tbc.png',
                 'service': 'flitt'
             },
             'bog_card': {
                 'name': 'BoG card',
                 'bank': 'BOG',
-                'icon': 'https://extra.ge/assets/atomic-assets/img/svg-icons/bog.png',
+                'icon': 'https://raw.githubusercontent.com/AmirejibiIlia/chikori_web_app/refs/heads/main/app/static/images/bog.png',
                 'service': 'flitt'
             }
         }
