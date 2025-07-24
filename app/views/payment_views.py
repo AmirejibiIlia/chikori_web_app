@@ -1,6 +1,6 @@
 from flask import request, jsonify, redirect, url_for, send_from_directory
 import hashlib
-from config.settings import FLITT_CONFIG, EMAIL_CONFIG
+from config.settings import FLITT_CONFIG, EMAIL_CONFIG, SHOW_CARD_PAYMENT, SHOW_TBC_INSTALLMENT, SHOW_BOG_INSTALLMENT, SHOW_LATER_TBC, SHOW_LATER_BOG
 from app.services.flitt_service import create_flitt_payment
 from app.services.tbc_installment_service import create_tbc_installment_application
 from app.services.tbc_ecommerce_service import create_tbc_ecommerce_payment
@@ -280,6 +280,27 @@ def init_payment_routes(app):
         """Get available payment methods configuration"""
         try:
             methods = get_payment_methods()
+            # Hide card payment method if flag is False
+            if not SHOW_CARD_PAYMENT and 'card' in methods:
+                methods = {k: v for k, v in methods.items() if k != 'card'}
+            # Filter sub-options for installment
+            if 'installment' in methods:
+                options = methods['installment'].get('options', {})
+                filtered_options = {}
+                if SHOW_TBC_INSTALLMENT and 'tbc_installment' in options:
+                    filtered_options['tbc_installment'] = options['tbc_installment']
+                if SHOW_BOG_INSTALLMENT and 'bog_installment' in options:
+                    filtered_options['bog_installment'] = options['bog_installment']
+                methods['installment']['options'] = filtered_options
+            # Filter sub-options for later
+            if 'later' in methods:
+                options = methods['later'].get('options', {})
+                filtered_options = {}
+                if SHOW_LATER_TBC and 'tbc_later' in options:
+                    filtered_options['tbc_later'] = options['tbc_later']
+                if SHOW_LATER_BOG and 'bog_later' in options:
+                    filtered_options['bog_later'] = options['bog_later']
+                methods['later']['options'] = filtered_options
             return jsonify({
                 'success': True,
                 'payment_methods': methods

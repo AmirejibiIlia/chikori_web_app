@@ -54,6 +54,12 @@ EMAIL_CONFIG = {
     'smtp_port': 587
 }
 
+SHOW_CARD_PAYMENT = os.environ.get('SHOW_CARD_PAYMENT', 'true').lower() == 'true'
+SHOW_TBC_INSTALLMENT = os.environ.get('SHOW_TBC_INSTALLMENT', 'true').lower() == 'true'
+SHOW_BOG_INSTALLMENT = os.environ.get('SHOW_BOG_INSTALLMENT', 'true').lower() == 'true'
+SHOW_LATER_TBC = os.environ.get('SHOW_LATER_TBC', 'true').lower() == 'true'
+SHOW_LATER_BOG = os.environ.get('SHOW_LATER_BOG', 'true').lower() == 'true'
+
 # ========================================
 # 🔑 SECURITY WARNING:
 # ========================================
