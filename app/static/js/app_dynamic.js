@@ -404,11 +404,9 @@ function showPhoneModal(orderInfo, afterSuccess) {
             });
             const result = await resp.json();
             if (result.success) {
-                modal.innerHTML = '<div class="modal-content"><h2>გაგზავნილია!</h2><p>თქვენი ინფორმაცია შენახულია.</p><button class="modal-btn" id="close-modal-btn">გადახდის გაგრძელება</button></div>';
-                document.getElementById('close-modal-btn').onclick = function() {
-                    document.getElementById('phone-modal-overlay').remove();
-                    if (typeof afterSuccess === 'function') afterSuccess();
-                };
+                document.getElementById('phone-modal-overlay').remove();
+                if (typeof afterSuccess === 'function') afterSuccess();
+                return;
             } else {
                 errorDiv.textContent = result.error || 'შეცდომა გაგზავნისას';
                 errorDiv.style.display = 'block';
