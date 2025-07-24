@@ -268,59 +268,22 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// Dynamic payment processing function
-async function selectOption(productId, optionKey, event) {
-    console.log(`Selected ${optionKey} for ${productId}`);
-    
-    // Find the product
-    const product = products.find(p => p.id === productId);
-    if (!product) {
-        alert('პროდუქტი ვერ მოიძებნა');
-        return;
-    }
-    
-    // Find the payment method and option
-    let methodType = null;
-    let optionData = null;
-    
-    for (const [type, method] of Object.entries(paymentMethods)) {
-        if (method.options && method.options[optionKey]) {
-            methodType = type;
-            optionData = method.options[optionKey];
-            break;
-        }
-    }
-    
-    if (!methodType || !optionData) {
-        console.error(`Payment option ${optionKey} not found in configuration`);
-        alert('გადახდის მეთოდი ვერ მოიძებნა');
-        return;
-    }
-    
-    // Check if service is implemented
-    if (!optionData.service) {
-        console.log(`Payment service for ${optionKey} not implemented yet`);
-        alert(`გადახდის მეთოდი "${optionData.name}" ჯერ არ არის ხელმისაწვდომი`);
-        return;
-    }
-    
+// Move payment logic to a new function
+async function processPayment(product, methodType, optionKey, optionData, event) {
     let button = event ? event.target : null;
     let originalText = button ? button.textContent : '';
-    
     try {
         if (button) {
             button.textContent = 'იტვირთება...';
             button.style.pointerEvents = 'none';
         }
-        
         // Prepare request data for dynamic payment
         const requestData = {
             method_type: methodType,
             option_key: optionKey,
-            product_id: productId,
+            product_id: product.id,
             amount: product.price
         };
-        
         // Log full request details
         console.log(`=== DYNAMIC PAYMENT REQUEST (${optionData.name}) ===`);
         console.log('Request URL:', '/api/dynamic-payment');
@@ -334,7 +297,6 @@ async function selectOption(productId, optionKey, event) {
         console.log('Payment Method:', methodType);
         console.log('Payment Option:', optionKey);
         console.log('Service:', optionData.service);
-        
         // Create dynamic payment request
         const response = await fetch('/api/dynamic-payment', {
             method: 'POST',
@@ -343,19 +305,15 @@ async function selectOption(productId, optionKey, event) {
             },
             body: JSON.stringify(requestData)
         });
-        
         // Log response details
         console.log(`=== DYNAMIC PAYMENT RESPONSE (${optionData.name}) ===`);
         console.log('Response Status:', response.status);
         console.log('Response Status Text:', response.statusText);
-        
         const result = await response.json();
         console.log('Response Body:', JSON.stringify(result, null, 2));
-        
         if (result.success) {
             // Handle different response types
             let redirectUrl = null;
-            
             if (result.payment_url) {
                 redirectUrl = result.payment_url;
             } else if (result.application_url) {
@@ -367,7 +325,6 @@ async function selectOption(productId, optionKey, event) {
             } else if (result.redirect_url) {
                 redirectUrl = result.redirect_url;
             }
-            
             if (redirectUrl) {
                 console.log('Redirecting to:', redirectUrl);
                 window.location.href = redirectUrl;
@@ -388,6 +345,115 @@ async function selectOption(productId, optionKey, event) {
             button.style.pointerEvents = 'auto';
         }
     }
+}
+
+// Update showPhoneModal to ask for name and phone
+function showPhoneModal(orderInfo, afterSuccess) {
+    // Remove any existing modal
+    const existing = document.getElementById('phone-modal-overlay');
+    if (existing) existing.remove();
+    // Create modal HTML
+    const modal = document.createElement('div');
+    modal.id = 'phone-modal-overlay';
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+      <div class="modal-content">
+        <button class="modal-close" onclick="document.getElementById('phone-modal-overlay').remove()">&times;</button>
+        <h2>ჩაწერეთ თქვენი ნომერი და სახელი</h2>
+        <p>ჩვენი ოპერატორი დაგიკავშირდებათ.</p>
+        <input type="text" id="user-name-input" placeholder="სახელი და გვარი" style="width: 90%; padding: 0.5rem; margin-bottom: 1rem; font-size: 1rem; border-radius: 6px; border: 1px solid #ccc;" maxlength="50" />
+        <input type="text" id="user-phone-input" placeholder="მაგ: 555123456" style="width: 90%; padding: 0.5rem; margin-bottom: 1rem; font-size: 1rem; border-radius: 6px; border: 1px solid #ccc;" maxlength="15" />
+        <div class="modal-actions">
+          <button class="modal-btn" id="send-order-btn">გაგზავნა</button>
+        </div>
+        <div id="phone-modal-error" style="color: red; margin-top: 1rem; display: none;"></div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    // Add send button logic
+    document.getElementById('send-order-btn').onclick = async function() {
+        const name = document.getElementById('user-name-input').value.trim();
+        const phone = document.getElementById('user-phone-input').value.trim();
+        const errorDiv = document.getElementById('phone-modal-error');
+        // Validate name
+        if (!name) {
+            errorDiv.textContent = 'გთხოვთ, შეიყვანეთ თქვენი სახელი და გვარი';
+            errorDiv.style.display = 'block';
+            return;
+        }
+        // Basic phone validation (Georgian mobile: 9 digits, starts with 5)
+        if (!/^5\d{8}$/.test(phone)) {
+            errorDiv.textContent = 'გთხოვთ, შეიყვანეთ სწორი ნომერი (მაგ: 555123456)';
+            errorDiv.style.display = 'block';
+            return;
+        }
+        errorDiv.style.display = 'none';
+        // Prepare order info
+        const payload = {
+            ...orderInfo,
+            name: name,
+            phone: phone,
+            order_time: new Date().toLocaleString('ka-GE', { timeZone: 'Asia/Tbilisi' })
+        };
+        // Send to backend
+        try {
+            const resp = await fetch('/api/send-order-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await resp.json();
+            if (result.success) {
+                modal.innerHTML = '<div class="modal-content"><h2>გაგზავნილია!</h2><p>თქვენი ინფორმაცია შენახულია.</p><button class="modal-btn" id="close-modal-btn">გადახდის გაგრძელება</button></div>';
+                document.getElementById('close-modal-btn').onclick = function() {
+                    document.getElementById('phone-modal-overlay').remove();
+                    if (typeof afterSuccess === 'function') afterSuccess();
+                };
+            } else {
+                errorDiv.textContent = result.error || 'შეცდომა გაგზავნისას';
+                errorDiv.style.display = 'block';
+            }
+        } catch (e) {
+            errorDiv.textContent = 'შეცდომა გაგზავნისას';
+            errorDiv.style.display = 'block';
+        }
+    };
+}
+
+// Patch selectOption to show modal, then process payment after email
+async function selectOption(productId, optionKey, event) {
+    // Find the product
+    const product = products.find(p => p.id === productId);
+    if (!product) {
+        alert('პროდუქტი ვერ მოიძებნა');
+        return;
+    }
+    // Find the payment method and option
+    let methodType = null;
+    let optionData = null;
+    for (const [type, method] of Object.entries(paymentMethods)) {
+        if (method.options && method.options[optionKey]) {
+            methodType = type;
+            optionData = method.options[optionKey];
+            break;
+        }
+    }
+    if (!methodType || !optionData) {
+        console.error(`Payment option ${optionKey} not found in configuration`);
+        alert('გადახდის მეთოდი ვერ მოიძებნა');
+        return;
+    }
+    // Show phone modal, then process payment after success
+    showPhoneModal({
+        product_id: product.id,
+        product_name: product.name,
+        product_price: product.price,
+        payment_method: methodType,
+        payment_option: optionKey,
+        payment_option_name: optionData.name
+    }, function() {
+        processPayment(product, methodType, optionKey, optionData, event);
+    });
 }
 
 // Toggle dropdown functionality

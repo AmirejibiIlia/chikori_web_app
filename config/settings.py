@@ -45,6 +45,15 @@ TBC_ECOMMERCE_CONFIG = {
 
 FLASK_SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', 'devsecret')
 
+# Email Configuration for Order Notifications
+EMAIL_CONFIG = {
+    'from_email': os.environ.get('EMAIL_FROM', 'Ilia.amirejibi.07@gmail.com'),
+    'to_email': os.environ.get('EMAIL_TO', 'Ilikoamirejibi@gmail.com'),
+    'app_password': os.environ.get('EMAIL_APP_PASSWORD', 'YOUR_EMAIL_APP_PASSWORD_HERE'),
+    'smtp_server': 'smtp.gmail.com',
+    'smtp_port': 587
+}
+
 # ========================================
 # 🔑 SECURITY WARNING:
 # ========================================
@@ -76,6 +85,9 @@ FLASK_SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', 'devsecret')
 # - TBC_ECOMMERCE_CLIENT_SECRET=your_real_tbc_ecommerce_client_secret
 # - TBC_ECOMMERCE_TEST_MODE=false
 # - TBC_ECOMMERCE_CALLBACK_URL=https://ganvadeba.store/tbc-ecommerce-callback
+# - EMAIL_FROM=your_gmail_address
+# - EMAIL_TO=your_operator_email
+# - EMAIL_APP_PASSWORD=your_gmail_app_password
 
 # - FLASK_ENV=production
 # - FLASK_SECRET_KEY=your_secure_production_secret

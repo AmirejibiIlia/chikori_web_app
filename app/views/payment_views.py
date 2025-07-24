@@ -1,12 +1,15 @@
 from flask import request, jsonify, redirect, url_for, send_from_directory
 import hashlib
-from config.settings import FLITT_CONFIG
+from config.settings import FLITT_CONFIG, EMAIL_CONFIG
 from app.services.flitt_service import create_flitt_payment
 from app.services.tbc_installment_service import create_tbc_installment_application
 from app.services.tbc_ecommerce_service import create_tbc_ecommerce_payment
 from app.services.payment_router import payment_router
 from app.models.product import get_all_products
 from config.products import get_payment_methods, get_price_ranges
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 def init_payment_routes(app):
     """Initialize payment-related routes"""
@@ -301,6 +304,52 @@ def init_payment_routes(app):
                 'success': False,
                 'error': f'Error fetching price ranges: {str(e)}'
             }), 500
+
+    @app.route('/api/send-order-email', methods=['POST'])
+    def send_order_email():
+        """Receive order info and send an email to the operator"""
+        try:
+            data = request.get_json()
+            name = data.get('name')
+            phone = data.get('phone')
+            order_time = data.get('order_time')
+            product_id = data.get('product_id')
+            product_name = data.get('product_name')
+            product_price = data.get('product_price')
+            payment_method = data.get('payment_method')
+            payment_option = data.get('payment_option')
+            payment_option_name = data.get('payment_option_name')
+
+            # Compose email using configuration
+            from_email = EMAIL_CONFIG['from_email']
+            to_email = EMAIL_CONFIG['to_email']
+            app_password = EMAIL_CONFIG['app_password']
+
+            subject = f'ახალი შეკვეთა საიტიდან - {order_time}'
+            body = f'''
+შეკვეთის დრო: {order_time}
+სახელი და გვარი: {name or ''}
+ტელეფონი: {phone}
+პროდუქტი: {product_name} (ID: {product_id})
+ფასი: {product_price} ლარი
+გადახდის მეთოდი: {payment_method} ({payment_option_name})
+'''
+            msg = MIMEMultipart()
+            msg['From'] = from_email
+            msg['To'] = to_email
+            msg['Subject'] = subject
+            msg.attach(MIMEText(body, 'plain'))
+
+            # Send email via Gmail SMTP
+            server = smtplib.SMTP(EMAIL_CONFIG['smtp_server'], EMAIL_CONFIG['smtp_port'])
+            server.starttls()
+            server.login(from_email, app_password)
+            server.sendmail(from_email, to_email, msg.as_string())
+            server.quit()
+
+            return jsonify({'success': True})
+        except Exception as e:
+            return jsonify({'success': False, 'error': str(e)})
 
     # Serve static files (css, js, images, etc.) - This should be LAST
     @app.route('/<path:path>')
