@@ -129,7 +129,7 @@ def get_price_ranges():
 # Payment Methods Configuration
 PAYMENT_METHODS = {
     'later': {
-        'name': 'განაწილებით',
+        'name': 'განაწილება 4 თვეზე 0%',
         'options': {
             'bog_later': {
                 'name': 'ნაწილ-ნაწილ',
