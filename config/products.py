@@ -3,6 +3,8 @@ Centralized Product Configuration
 This is the single source of truth for all product data, prices, and metadata.
 """
 
+import os
+
 # Product Categories
 PRODUCT_CATEGORIES = {
     'furniture': {
@@ -11,12 +13,16 @@ PRODUCT_CATEGORIES = {
     }
 }
 
+# Dynamic Product Prices from Environment Variables
+PRICE_BED = int(os.environ.get('PRICE_BED', 260))
+PRICE_TABLE = int(os.environ.get('PRICE_TABLE', 600))
+
 # Product Data - Single source of truth
 PRODUCTS = {
     'table': {
         'id': 'table',
         'name': 'სამზარეულოს კუთხე',
-        'price': 620,
+        'price': PRICE_TABLE,
         'currency': 'GEL',
         'category': 'furniture',
         'rating': 4.98,
@@ -34,7 +40,7 @@ PRODUCTS = {
     'bed': {
         'id': 'bed',
         'name': 'ტრანსფორმერი მაგიდა',
-        'price': 260,
+        'price': PRICE_BED,
         'currency': 'GEL',
         'category': 'furniture',
         'rating': 5.00,

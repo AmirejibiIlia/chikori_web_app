@@ -71,6 +71,9 @@ SHOW_LATER_BOG = os.environ.get('SHOW_LATER_BOG', 'true').lower() == 'true'
 # 3. Set FLITT_BASE_URL=http://localhost:8000
 # 4. Set FLITT_TEST_MODE=true
 # 5. Set TBC_TEST_MODE=true
+# 6. Set product prices (optional):
+#    - PRICE_BED=260
+#    - PRICE_TABLE=620
 #
 # For PRODUCTION (Render):
 # Set these environment variables in Render:
@@ -94,6 +97,8 @@ SHOW_LATER_BOG = os.environ.get('SHOW_LATER_BOG', 'true').lower() == 'true'
 # - EMAIL_FROM=your_gmail_address
 # - EMAIL_TO=your_operator_email
 # - EMAIL_APP_PASSWORD=your_gmail_app_password
+# - PRICE_BED=260 (or your desired bed price)
+# - PRICE_TABLE=620 (or your desired table price)
 
 # - FLASK_ENV=production
 # - FLASK_SECRET_KEY=your_secure_production_secret
@@ -108,4 +113,8 @@ print(f"🏪 Merchant ID: {FLITT_CONFIG['merchant_id']}")
 print(f"🏦 TBC Test Mode: {TBC_CONFIG['test_mode']}")
 print(f"🏦 TBC Campaign ID: {TBC_CONFIG['campaign_id']}")
 print(f"🏦 TBC E-Commerce Test Mode: {TBC_ECOMMERCE_CONFIG['test_mode']}")
-print(f"🏦 TBC E-Commerce API Key: {TBC_ECOMMERCE_CONFIG['api_key'][:10]}...") 
+print(f"🏦 TBC E-Commerce API Key: {TBC_ECOMMERCE_CONFIG['api_key'][:10]}...")
+
+# Product Prices Info
+print(f"🛏️ Bed Price: {os.environ.get('PRICE_BED', '260 (default)')} GEL")
+print(f"🪑 Table Price: {os.environ.get('PRICE_TABLE', '620 (default)')} GEL") 
