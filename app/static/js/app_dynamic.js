@@ -203,7 +203,7 @@ function renderProducts(productsToRender) {
 function generateMainOptions(productId) {
     if (!paymentMethods || Object.keys(paymentMethods).length === 0) {
         return `
-            <button class="main-option-btn" onclick="showSubOptions('${productId}', 'later')">განაწილებით 4 თვეზე 0%</button>
+            <button class="main-option-btn" onclick="showSubOptions('${productId}', 'later')">განაწილებით</button>
             <button class="main-option-btn" onclick="showSubOptions('${productId}', 'installment')">განვადება</button>
             <button class="main-option-btn" onclick="showSubOptions('${productId}', 'card')">ბარათით გადახდა</button>
         `;
