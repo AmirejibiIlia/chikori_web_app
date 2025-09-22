@@ -59,7 +59,7 @@ PRODUCTS = {
         'active': True
     },
     'sofa': {
-        'id': 'Bed',
+        'id': 'bed',
         'name': 'საწოლი პატარა',
         'price': PRICE_BED_S,
         'currency': 'GEL',
