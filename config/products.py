@@ -14,15 +14,18 @@ PRODUCT_CATEGORIES = {
 }
 
 # Dynamic Product Prices from Environment Variables
-PRICE_BED = int(os.environ.get('PRICE_BED', 260))
-PRICE_TABLE = int(os.environ.get('PRICE_TABLE', 600))
+PRICE_BED_S = int(os.environ.get('PRICE_BED_S', 260))
+PRICE_BED_B = int(os.environ.get('PRICE_BED_B', 500))
+PRICE_CORNER_SOFA = int(os.environ.get('PRICE_CORNER_SOFA', 600))
+PRICE_TABLE = int(os.environ.get('PRICE_TABLE', 700))
+
 
 # Product Data - Single source of truth
 PRODUCTS = {
     'table': {
-        'id': 'table',
+        'id': 'corner_sofa',
         'name': 'სამზარეულოს კუთხე',
-        'price': PRICE_TABLE,
+        'price': PRICE_CORNER_SOFA,
         'currency': 'GEL',
         'category': 'furniture',
         'rating': 4.98,
@@ -38,9 +41,9 @@ PRODUCTS = {
         'active': True
     },
     'bed': {
-        'id': 'bed',
+        'id': 'table',
         'name': 'ტრანსფორმერი მაგიდა',
-        'price': PRICE_BED,
+        'price': PRICE_TABLE,
         'currency': 'GEL',
         'category': 'furniture',
         'rating': 5.00,
@@ -56,40 +59,41 @@ PRODUCTS = {
         'active': True
     },
     'sofa': {
-        'id': 'sofa',
-        'name': 'სამზარეულოს კუთხე',
-        'price': 31.00,
+        'id': 'Bed',
+        'name': 'საწოლი დიდი',
+        'price': PRICE_BED_S,
         'currency': 'GEL',
         'category': 'furniture',
         'rating': 5.0,
         'image': 'https://zeelproject.com/uploads/posts/2021-02-15/1613392761_2.jpg',
         'sku': 'SOFA_001',
-        'description': '<strong>ძირითადი მახასიათებლები</strong><br><br><strong>ზომები:</strong> 124x164x83 - ასევე ვამზადებთ შეკვეთით<br><strong>მასალა:</strong> MDF/LMNT<br><strong>ფერი:</strong> ხისფერი (მონაცრისფრო)<br><strong>დამზადების ვადა:</strong> 2 სამუშაო დღე<br><strong>მიწოდება:</strong> აწყობილ მდგომარეობაში<br><strong>მიტანის სერვისი</strong>',
+        'description': '<strong>ძირითადი მახასიათებლები </strong><br><br><strong> ფასი მოცემულია მატრასის გარეშე</strong><br><br><strong>ზომები:</strong> 160X200 <br><strong>მასალა:</strong> MDF/LMNT<br><strong>ფერი:</strong> შეკვეთით <br><strong>დამზადების ვადა:</strong> 2 სამუშაო დღე<br><strong>მიწოდება:</strong> ასაწყობ მდგომარეობაში<br><strong>მიტანის სერვისი</strong>',
         'features': ['MDF/LMNT მასალა', 'ხისფერი ფერი', '2 დღე დამზადება'],
         'dimensions': '124x164x83',
         'material': 'MDF/LMNT',
         'color': 'ხისფერი (მონაცრისფრო)',
         'production_time': '2 სამუშაო დღე',
         'delivery': 'აწყობილ მდგომარეობაში',
-        'active': False
+        'active': True
     },
+    
     'desk': {
         'id': 'desk',
-        'name': 'სამუშაო მაგიდა',
-        'price': 41.00,
+        'name': 'საწოლი პატარა',
+        'price': PRICE_BED_B,
         'currency': 'GEL',
         'category': 'furniture',
-        'rating': 4.8,
-        'image': 'https://gorgia.ge/images/ab__webp/thumbnails/1223/1000/detailed/65/BM-00141262_jpg.webp',
-        'sku': 'DESK_001',
-        'description': '<strong>ძირითადი მახასიათებლები</strong><br><br><strong>ზომები:</strong> 140x70x40 - ასევე ვამზადებთ შეკვეთით<br><strong>მასალა:</strong> MDF/LMNT<br><strong>ფერი:</strong> ხისფერი<br><strong>დამზადების ვადა:</strong> 3 სამუშაო დღე<br><strong>მიწოდება:</strong> აწყობილ მდგომარეობაში<br><strong>მიტანის სერვისი</strong>',
-        'features': ['MDF/LMNT მასალა', 'ხისფერი ფერი', '3 დღე დამზადება'],
-        'dimensions': '140x70x40',
+        'rating': 5.0,
+        'image': 'https://zeelproject.com/uploads/posts/2021-02-15/1613392761_2.jpg',
+        'sku': 'SOFA_002',
+        'description': '<strong>ძირითადი მახასიათებლები </strong><br><br><strong> ფასი მოცემულია მატრასის გარეშე</strong><br><br><strong>ზომები:</strong> 90X200 <br><strong>მასალა:</strong> MDF/LMNT<br><strong>ფერი:</strong> შეკვეთით <br><strong>დამზადების ვადა:</strong> 2 სამუშაო დღე<br><strong>მიწოდება:</strong> ასაწყობ მდგომარეობაში<br><strong>მიტანის სერვისი</strong>',
+        'features': ['MDF/LMNT მასალა', 'ხისფერი ფერი', '2 დღე დამზადება'],
+        'dimensions': '124x164x83',
         'material': 'MDF/LMNT',
-        'color': 'ხისფერი',
-        'production_time': '3 სამუშაო დღე',
+        'color': 'ხისფერი (მონაცრისფრო)',
+        'production_time': '2 სამუშაო დღე',
         'delivery': 'აწყობილ მდგომარეობაში',
-        'active': False
+        'active': True
     }
 }
 
