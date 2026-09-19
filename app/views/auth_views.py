@@ -40,7 +40,7 @@ def init_auth_routes(app):
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>რეგისტრაცია - ჩიკორი</title>
+            <title>რეგისტრაცია - ირაო 2026</title>
             <link rel="stylesheet" href="/static/css/style.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
             <style>
@@ -320,7 +320,7 @@ def init_auth_routes(app):
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>შესვლა - ჩიკორი</title>
+            <title>შესვლა - ირაო 2026</title>
             <link rel="stylesheet" href="/static/css/style.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
             <style>
