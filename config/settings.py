@@ -37,7 +37,7 @@ TBC_ECOMMERCE_CONFIG = {
     'test_mode': os.environ.get('TBC_ECOMMERCE_TEST_MODE', 'true').lower() == 'true',
     'oauth_url': '/v1/tpay/access-token',
     'payment_url': '/v1/tpay/payments',
-    'callback_url': os.environ.get('TBC_ECOMMERCE_CALLBACK_URL', 'https://ganvadeba.store/tbc-ecommerce-callback'),
+    'callback_url': os.environ.get('TBC_ECOMMERCE_CALLBACK_URL', 'https://Iafiave.ge/tbc-ecommerce-callback'),
     'merchant_id': os.environ.get('TBC_ECOMMERCE_MERCHANT_ID', 'YOUR_TBC_ECOMMERCE_MERCHANT_ID_HERE'),
     'client_id': os.environ.get('TBC_ECOMMERCE_CLIENT_ID', 'YOUR_TBC_ECOMMERCE_CLIENT_ID_HERE'),
     'client_secret': os.environ.get('TBC_ECOMMERCE_CLIENT_SECRET', 'YOUR_TBC_ECOMMERCE_CLIENT_SECRET_HERE')
@@ -79,7 +79,7 @@ SHOW_LATER_BOG = os.environ.get('SHOW_LATER_BOG', 'true').lower() == 'true'
 # Set these environment variables in Render:
 # - FLITT_MERCHANT_ID=your_real_merchant_id
 # - FLITT_SECRET_KEY=your_real_secret_key
-# - FLITT_BASE_URL=https://www.ganvadeba.store
+# - FLITT_BASE_URL=https://www.Iafiave.ge
 # - FLITT_TEST_MODE=false
 # - TBC_API_KEY=your_real_tbc_api_key
 # - TBC_API_SECRET=your_real_tbc_api_secret
@@ -93,7 +93,7 @@ SHOW_LATER_BOG = os.environ.get('SHOW_LATER_BOG', 'true').lower() == 'true'
 # - TBC_ECOMMERCE_CLIENT_ID=your_real_tbc_ecommerce_client_id
 # - TBC_ECOMMERCE_CLIENT_SECRET=your_real_tbc_ecommerce_client_secret
 # - TBC_ECOMMERCE_TEST_MODE=false
-# - TBC_ECOMMERCE_CALLBACK_URL=https://ganvadeba.store/tbc-ecommerce-callback
+# - TBC_ECOMMERCE_CALLBACK_URL=https://Iafiave.ge/tbc-ecommerce-callback
 # - EMAIL_FROM=your_gmail_address
 # - EMAIL_TO=your_operator_email
 # - EMAIL_APP_PASSWORD=your_gmail_app_password
